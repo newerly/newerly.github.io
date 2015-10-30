@@ -57,7 +57,7 @@
 							<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 							<li ><a href="/category/mongodb.html">Mongodb</a></li>
 							<li ><a href="/category/ruan-jian.html">软件</a></li>
-							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
+							<li class="active"><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 							<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
 							<li ><a href="/category/za-xiang.html">杂项</a></li>
 
@@ -86,7 +86,7 @@
 								<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 								<li ><a href="/category/mongodb.html">Mongodb</a></li>
 								<li ><a href="/category/ruan-jian.html">软件</a></li>
-								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
+								<li class="active"><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 								<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
 								<li ><a href="/category/za-xiang.html">杂项</a></li>
 						</ul>
@@ -105,21 +105,24 @@
 					<div class="row">
 						<!-- Main Content -->
 						<div class="medium-9 small-12 columns" role="content">
-							<div class="row">
-								<div class="small-12 columns">
-									<h2>Posts Tagged With '机器学习'</h2>
-								</div>
-							</div>
-
 <article>
-	<h3><a href="/zui-jin-lin-he-shi-you-yi-yi.html">最近邻何时有意义</a></h3>
-	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/yue-du-bi-ji.html">阅读笔记</a> on 三 28 十月 2015. Tags: <a href="/tag/zui-jin-lin.html">最近邻</a>, <a href="/tag/ji-qi-xue-xi.html">机器学习</a>, </h6>
-	
-		<p class="continue"><a href="/zui-jin-lin-he-shi-you-yi-yi.html">Continue reading &raquo;</a></p>
+	<h2>APP数据包初步分析</h2>
+	<p>应用层协议报文的特点：</p>
+<ol>
+<li>以TCP作为传输层协议，HTTP作为应用层协议传输占很大比例，HTTP协议的载荷再封装自定义消息内容，同时也有基于XMPP自定义的通信协议;</li>
+<li>一份报文，即一条TCP连接，在其载荷内容中可能包含多个消息;</li>
+<li>可能存在跨流传输同一个报文的情况。</li>
+</ol>
+<p>这些特点带来的问题是：</p>
+<ol>
+<li>无法将应用层报文与消息样本一一对应，因为存在一份应用层报文包含多个自定义消息的情况;</li>
+<li>消息中传输的数据内容较大，而报头较短;</li>
+</ol>
+	<hr/>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/shu-ju-fen-xi.html">数据分析</a> on 一 28 九月 2015.</h6>
 </article>
-<hr />
 
-
+<hr/>
 						</div>
 						<!-- End Main Content -->
 						<!-- Sidebar -->

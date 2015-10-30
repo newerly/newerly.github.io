@@ -55,7 +55,7 @@
 						<li><label>Categories</label></li>
 							<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
 							<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
-							<li ><a href="/category/mongodb.html">Mongodb</a></li>
+							<li class="active"><a href="/category/mongodb.html">Mongodb</a></li>
 							<li ><a href="/category/ruan-jian.html">软件</a></li>
 							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 							<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
@@ -84,7 +84,7 @@
 						<ul class="left">
 								<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
 								<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
-								<li ><a href="/category/mongodb.html">Mongodb</a></li>
+								<li class="active"><a href="/category/mongodb.html">Mongodb</a></li>
 								<li ><a href="/category/ruan-jian.html">软件</a></li>
 								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 								<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
@@ -105,21 +105,22 @@
 					<div class="row">
 						<!-- Main Content -->
 						<div class="medium-9 small-12 columns" role="content">
-							<div class="row">
-								<div class="small-12 columns">
-									<h2>Posts Tagged With '机器学习'</h2>
-								</div>
-							</div>
-
 <article>
-	<h3><a href="/zui-jin-lin-he-shi-you-yi-yi.html">最近邻何时有意义</a></h3>
-	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/yue-du-bi-ji.html">阅读笔记</a> on 三 28 十月 2015. Tags: <a href="/tag/zui-jin-lin.html">最近邻</a>, <a href="/tag/ji-qi-xue-xi.html">机器学习</a>, </h6>
-	
-		<p class="continue"><a href="/zui-jin-lin-he-shi-you-yi-yi.html">Continue reading &raquo;</a></p>
+	<h2>[Mongodb问题集锦]Mongodb集群中mongos无法启动</h2>
+	<p>上周在出差前，为了切换集群的连接端口，也就是把mongos的port换一下，把mongodb集群用脚本停掉，实际上用的是<code>pkill -2 mongo</code>。改好端口之后，再启动，各分片服务器、配置服务器和副本集配置均正常启动，到了最后一步启动mongos路由服务器出错了，屏显信息看不出所以然，查看mongos的日志（所以一定要开日志）找到类似如下提示，大意如此：</p>
+<div class="highlight"><pre>could not verify config server in sync: mongodb-1:57017, mongodb-2:57017 differ
+</pre></div>
+
+
+<p>就是说，集群有两台配置服务器不一致、不同步，导致路由服务无法启动。在集群中我设置有三个配置服务器。然后，就茫然了，赶着要出差的时候掉链子，当时不知道怎么弄，数据库集群就停工了半周。在网上查了一下，找到了解决方法，今天就搞定了。</p>
+<p>很简单。网上有两个方法，</p>
+<p><em>方法一</em>，把mongodb-1上的config server的内容全部dump出来，在restore到mongodb-2的config server上去。再重启集群，实际上只需重启mongos即可，但还是报错，不一致。因为在restore到mongodb-2上时，有key冲突。</p>
+<p><em>方法二</em>，比较暴力，直接把mongodb-1上config的所有文件拿去替换mongodb-2上config文件夹中的所有内容。再重启集群，还是报错，只是报的是mongodb-1和mongodb-3的不一致，如法炮制，替换掉mongodb-3上config的文件内容，再重启就好了。</p>
+	<hr/>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/mongodb.html">Mongodb</a> on 一 31 八月 2015.</h6>
 </article>
-<hr />
 
-
+<hr/>
 						</div>
 						<!-- End Main Content -->
 						<!-- Sidebar -->

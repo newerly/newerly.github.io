@@ -59,7 +59,7 @@
 							<li ><a href="/category/ruan-jian.html">软件</a></li>
 							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 							<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
-							<li ><a href="/category/za-xiang.html">杂项</a></li>
+							<li class="active"><a href="/category/za-xiang.html">杂项</a></li>
 
 						<li><label>Links</label></li>
 							<li><a href="http://getpelican.com/">Pelican</a></li>
@@ -88,7 +88,7 @@
 								<li ><a href="/category/ruan-jian.html">软件</a></li>
 								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 								<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
-								<li ><a href="/category/za-xiang.html">杂项</a></li>
+								<li class="active"><a href="/category/za-xiang.html">杂项</a></li>
 						</ul>
                         <ul class="right">                                                                                                                                           
                                                                                                           
@@ -105,17 +105,8 @@
 					<div class="row">
 						<!-- Main Content -->
 						<div class="medium-9 small-12 columns" role="content">
-
 <article>
-	<h3><a href="/zui-jin-lin-he-shi-you-yi-yi.html">最近邻何时有意义</a></h3>
-	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/yue-du-bi-ji.html">阅读笔记</a> on 三 28 十月 2015. Tags: <a href="/tag/zui-jin-lin.html">最近邻</a>, <a href="/tag/ji-qi-xue-xi.html">机器学习</a>, </h6>
-	
-		<p class="continue"><a href="/zui-jin-lin-he-shi-you-yi-yi.html">Continue reading &raquo;</a></p>
-</article>
-<hr />
-<article>
-	<h3><a href="/linuxubuntuzhuang-ji-bi-bei-qing-dan.html">Linux(Ubuntu)装机必备清单</a></h3>
-	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/za-xiang.html">杂项</a> on 五 14 八月 2015.</h6>
+	<h2>Linux(Ubuntu)装机必备清单</h2>
 	<p>装机系统为Ubuntu Kylin 14.04 trusty 64-bit</p>
 <ol>
 <li>
@@ -128,12 +119,79 @@
 <span class="c"># mirror.list选择一个国内镜像</span>
 <span class="err">$sudo</span> <span class="err">vim</span> <span class="err">/etc/apt/mirror.list</span>
 <span class="c"># 修改本地镜像地址</span>
-<span class="c">#--------- mirror.list ...</span></pre></div></li></ol>
-		<p class="continue"><a href="/linuxubuntuzhuang-ji-bi-bei-qing-dan.html">Continue reading &raquo;</a></p>
+<span class="c">#--------- mirror.list ----------</span>
+<span class="err">set</span> <span class="err">base_path</span> <span class="err">/downloads/ubuntu</span>
+<span class="err">set</span> <span class="err">mirror_path</span> <span class="err">$base_path/mirror</span>
+<span class="err">set</span> <span class="err">skel_path</span> <span class="err">$base_path/skel</span>
+<span class="err">set</span> <span class="err">var_path</span> <span class="err">$base_path/var</span>
+<span class="err">set</span> <span class="err">cleanscript</span> <span class="err">$var_path/clean.sh</span>
+<span class="err">set</span> <span class="err">nthreads</span> <span class="err">20</span>
+<span class="err">set</span> <span class="err">_tilde</span> <span class="err">0</span>
+<span class="c"># 把常用的软件同步过来，这里用的是阿里云的软件源，如果同步与本机版本一致的软件，</span>
+<span class="c"># 用deb即可，也可指定只同步64位软件，用deb-amd64</span>
+<span class="err">deb-amd64</span> <span class="err">http://mirrors.aliyun.com/ubuntu</span> <span class="err">trusty</span> <span class="err">main</span> <span class="err">restricted</span> <span class="err">universe</span> <span class="err">multiverse</span>
+<span class="err">deb-amd64</span> <span class="err">http://mirrors.aliyun.com/ubuntu</span> <span class="err">trusty-security</span> <span class="err">main</span> <span class="err">restricted</span> <span class="err">universe</span> <span class="err">multiverse</span>
+<span class="err">deb-amd64</span> <span class="err">http://mirrors.aliyun.com/ubuntu</span> <span class="err">trusty-backports</span> <span class="err">main</span> <span class="err">restricted</span> <span class="err">universe</span> <span class="err">multiverse</span>
+<span class="err">deb-amd64</span> <span class="err">http://mirrors.aliyun.com/ubuntu</span> <span class="err">trusty-update</span> <span class="err">main</span> <span class="err">restricted</span> <span class="err">universe</span> <span class="err">multiverse</span>
+<span class="c">#---------    END      ----------</span>
+<span class="c"># 开始镜像，然后可以睡觉去了，然后再睡一觉，基本就把软件源都镜像好了    </span>
+<span class="err">$sudo</span> <span class="err">apt-mirror</span>     
+<span class="c"># 软件源镜像完成后，更新本地软件源</span>
+<span class="err">$sudo</span> <span class="err">cp</span> <span class="err">/etc/apt/sources.list</span> <span class="err">/etc/apt/sources.list.backup</span>  <span class="c"># 先备份</span>
+<span class="err">$sudo</span> <span class="err">vim</span> <span class="err">/etc/apt/sources.list</span>
+<span class="c">#--------- sources.list ---------</span>
+<span class="k">deb</span> <span class="s">file:///downloads/mirror/mirrors.aliyun.com/ubuntu/</span> <span class="kp">trusty</span> <span class="kp">main</span> <span class="kp">restricted</span>
+<span class="c">#---------    END      ----------</span>
+<span class="c"># 更新软件源</span>
+<span class="err">$sudo</span> <span class="err">apt-get</span> <span class="err">update</span>
+<span class="c"># 更新过程可能有“无法下载”的错误，尝试安装一下本机没有的软件，</span>
+<span class="c"># 比如vim，build-essential，如果可以装上，则本地软件源设置成功，不行的话，就google吧</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>系统软件</p>
+<ul>
+<li>vim</li>
+<li>build-essential</li>
+<li>jvm</li>
+<li>jre</li>
+<li>zsh</li>
+<li>vncviewer</li>
+<li>rar</li>
+<li>mp3，Ubuntu自带的Rhythmbox没有mp3解码器，要安装gstreamer1.0-fluendo-mp3和它的依赖库liboil0.3</li>
+</ul>
+</li>
+<li>
+<p>编程环境</p>
+<ul>
+<li>Pycharm</li>
+<li>Eclipse Cpp</li>
+<li>Eclipse Java</li>
+<li>CodeLite</li>
+</ul>
+</li>
+<li>
+<p>文档编辑</p>
+<ul>
+<li>Pelican</li>
+<li>Texlive</li>
+<li>Zotero</li>
+</ul>
+</li>
+<li>
+<p>专业软件</p>
+<ul>
+<li>Wireshark</li>
+</ul>
+</li>
+</ol>
+	<hr/>
+	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/za-xiang.html">杂项</a> on 五 14 八月 2015.</h6>
 </article>
-<hr />
 
-
+<hr/>
 						</div>
 						<!-- End Main Content -->
 						<!-- Sidebar -->

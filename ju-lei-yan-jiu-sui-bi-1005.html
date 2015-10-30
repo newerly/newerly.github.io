@@ -1,0 +1,216 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Newerly's Blog</title>
+		<meta name="description" content="">
+		<meta name="author" content="Patrick">
+
+		<link rel="stylesheet" href="/theme/css/foundation.css" />
+		<link rel="stylesheet" href="/theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="/theme/css/custom.css" />
+
+
+		<script src="/theme/js/modernizr.js"></script>
+
+		<!-- Feeds -->
+
+
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">Newerly's&nbsp;Blog</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href="">Home</a></li>
+						<li><label>Categories</label></li>
+							<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
+							<li class="active"><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+							<li ><a href="/category/mongodb.html">Mongodb</a></li>
+							<li ><a href="/category/ruan-jian.html">软件</a></li>
+							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
+							<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
+							<li ><a href="/category/za-xiang.html">杂项</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="http://getpelican.com/">Pelican</a></li>
+							<li><a href="http://python.org/">Python.org</a></li>
+							<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+
+
+						<li><label>Social</label></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="/">Newerly's Blog</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
+								<li class="active"><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+								<li ><a href="/category/mongodb.html">Mongodb</a></li>
+								<li ><a href="/category/ruan-jian.html">软件</a></li>
+								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
+								<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
+								<li ><a href="/category/za-xiang.html">杂项</a></li>
+						</ul>
+                        <ul class="right">                                                                                                                                           
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="/pages/about.html">About</a></li>                                    
+                                                                                                                                          
+                                                                                                                                             
+                        </ul>  
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<article>
+	<h2>聚类研究随笔-1005</h2>
+	<h4><strong> 1.聚类有效性问题 </strong></h4>
+<p>聚类算法是一种无监督的学习算法，实现对各定数据的结构一无所知，无论用什么算法聚类，其聚类结果的合理性都有待评价。一些算法只能保证收敛到目标函数的局部极值，不用的聚类数和初值就可能得到不同聚类结果，如何评价不同的聚类结果，是聚类有效问题。</p>
+<p>Bezdek在1974年提出了聚类有效性函数$V_{pc}(u,c)$，也称为划分系数(Partition Coefficient)，是第一个实用的聚类有效性标准，定义如下：</p>
+<p>$$ V_{pc}(u,c)=(1/n)*\sum_{k=1}^{n}\sum_{i=1}^{c}u_{ik}^{2} $$</p>
+<p>Bezdek指出可以以上式作为聚类有效性函数，即</p>
+<p>$$ \exists{u^<em>,c^</em>}, V_{pc}(u^<em>,c^</em>)=\max_{2\le c\ge c-1}{\max_{\Omega_c}V_{pc}(u,c)} $$</p>
+<p>则以$(u^<em>,c^</em>)$为最优聚类结果，其中$\Omega_c$为聚类数为c时，FCM算法得到的所有划分矩阵$u$。</p>
+<p>范九伦等人定义了一个新的聚类有效性函数$FP(u,c)=V_{pc}(u,c)-P(u,c)$，其中$P(u,c)$为新的划分系数</p>
+<p>$$ P(u,c)=(1/c)*\sum_{i=1}^{c}(\sum_{k=1}^{n}u^2_{ik}/\sum_{k=1}^{n}u_{ik}) $$</p>
+<h4><strong> 2.对$V_{pc}(u,c)$、$P(u,c)$、$FP(u,c)$的理论分析 </strong></h4>
+<p><strong> 定理1 </strong> 当$1&lt;c&lt;n$时，</p>
+<ol>
+<li>$\frac{1}{c}\le P(u,c)\le 1$;</li>
+<li>$P(u,c)=1\Leftrightarrow u是硬划分$</li>
+<li>$P(u,c)=1/c\Leftrightarrow u[a_1,a_2,\dots,a_c]^T× [1,1,\dots,1],\forall 1\le i\le c; a_i&lt;0 \sum_{i=1}^{c}a_i=1$</li>
+</ol>
+<p><strong> 定理2 </strong> 当$1&lt;c&lt;n$时，</p>
+<ol>
+<li>$\frac{1}{c}\le V_{pc}(u,c)\le 1$;</li>
+<li>$V_{pc}(u,c)=1\Leftrightarrow u是硬划分$</li>
+<li>$V_{pc}(u,c)=1/c\Leftrightarrow u=[1/c]$</li>
+</ol>
+<p>有定理1、2可知，$P(u,c)$和$V_{pc}(u,c)$具有类似的性质，于剑认为范九伦的结论未必成立，并认为：</p>
+<ol>
+<li>$P(u,c)$可以作为聚类有效性函数</li>
+<li>使得$FP(u,c)$取最小值的$(u^<em>,c^</em>)$并不能保证$V_{pc}(u^<em>,c^</em>)$和$P(u^<em>,c^</em>)$差别很小，一个极端的情况是根据定理1、2,当划分最模糊的时候，$FP(u,c)$为0,但非最佳划分。</li>
+</ol>
+<p><code>这里有个问题，于剑只是定性地说明了$FP(u,c)$不可行，但没有严格的公式证明，可以计算一下这个函数的极值。</code></p>
+<h4><strong> 3.改进的划分系数 </strong></h4>
+<p>可能性划分系数由范九伦等人提出，划分系数是从模糊聚类问题中引出，模糊聚类问题可表示成下面的数据规划问题</p>
+<p>$$ \min J_m(U,V)=\sum_{i=1}^{n}\sum_{j=1}^{c}u_{ij}^{m}d_{ij}^2 $$</p>
+<p>满足约束条件$\sum_{j=1}^{c}u_{ij}=1,1\le i\le n;u_{ij}\ge 0,1\le i\le n, 1\le j\le c$。其中，$n$是数据样本个数，$c$是聚类个数，$m$是权重因子，$m$比较合理的取值区间为1.5～2.5，一般取2（见于剑一文）。$u_{ij}$是样本点对每个类的隶属度矩阵。解决上述问题的算法即为模式C-均值聚类算法。为了确定聚类数目，Bezdek定义了$V_{pc}$，一个等价的定义是</p>
+<p>$$ V_{pc}^{'}(u,c)=\frac{1}{n}\sum_{i=1}^{n}\max_{j=1}^{c}u_{ij} $$</p>
+<p>但这两个定义都缺乏与数据集的几何结构的直接联系（<code>这个重要吗？</code>）,这里引入两个定义</p>
+<ol>
+<li>对于给定的模糊C-划分，$u_{ij}\| x_i-V_j\|$叫做样本$x_i$到第$j$个类的模糊偏差，其中$V_j$是模糊类$j$的类中心（<code>一定要求取类中心？用类边界，如SVM算支撑向量也可以吧？</code>）</li>
+<li>对于给定的模糊C-划分，$\sigma_j=\sum_{i=1}^{n}u_{ij}^{2}|x_i-V_j|^2$叫做第$j$个类的模糊变差。</li>
+</ol>
+<p>模糊C-均值聚类算法适用于每类样本数相差不大且每类隶属度方差相差不大的团状数据。考虑到模糊C-均值聚类算法的适用条件，吴成茂等人定义了如下的有效性标准</p>
+<p>$$
+V^{''}(U;c)=\frac{\min_{i=1}^{c}(\sum_{i=1}^{n}u_{ij})}{\max_{j=1}^c(\sum_{i=1}^{n}u_{ij})}[V^{'}(U;c)+1-\frac{\max_{j=1}^{c}(\sum_{i=1}^{n}u_{ij}^2\|x_i-V_j\|^2)}{\sum_{i=1}^{n}\|x_i-(\sum_{i=1}^{n}x_i)/n\|^2}]
+$$</p>
+<p>满足$V^{''}(U^<em>;c^</em>)=\max_c|\max_{\Omega_c}V^{''}(U;c)|$的$(U^<em>,c^</em>)$为最佳的有效性聚类。</p>
+<p>范九伦提出的$P(U;c)$由可能性分布引出，可能性分布描述因子由Hall和Kandel引入，定义为</p>
+<p>$$ PDD=\frac{\sum_{i=1}^{n}u_i^2}{\sum_{i=1}^{n}u_i} $$</p>
+<p>类似于概率论中的均值概念，可能性分布描述因子反映了可能性分布的平均可能性，显然有$0&lt;PDD&lt;1$。同样的，将$V^{''}$公式中的$V$替换为$P$，可以定义出新的有效性函数，因此<code>V(u,c)与P(u,c)是否存在等价关系</code>。</p>
+<h5><strong> 参考文献 </strong></h5>
+<p>于剑，关于聚类有效性函数<em>FP(u,c)</em>的研究 <br />
+范九伦，可能性划分系数和模糊变差相结合的聚类有效性函数 <br />
+吴成茂，基于数据划分最大信息的聚类有效性函数</p>
+<h5><strong> 深入阅读 </strong></h5>
+<p>Bezdek, Cluster validity with fuzzy sets <br />
+范九伦，基于可能性分布的聚类有效性</p>
+	<hr/>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ji-qi-xue-xi.html">机器学习</a> on 一 05 十月 2015.</h6>
+</article>
+
+<hr/>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="http://getpelican.com/">Pelican</a></li>
+									<li><a href="http://python.org/">Python.org</a></li>
+									<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+								</ul>
+							</div>
+
+
+							<div class="panel">
+								<h5>Social</h5>
+								<ul class="side-nav">
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="/theme/js/jquery.js"></script>
+		<script src="/theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>

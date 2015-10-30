@@ -59,7 +59,7 @@
 							<li ><a href="/category/ruan-jian.html">软件</a></li>
 							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 							<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
-							<li ><a href="/category/za-xiang.html">杂项</a></li>
+							<li class="active"><a href="/category/za-xiang.html">杂项</a></li>
 
 						<li><label>Links</label></li>
 							<li><a href="http://getpelican.com/">Pelican</a></li>
@@ -88,7 +88,7 @@
 								<li ><a href="/category/ruan-jian.html">软件</a></li>
 								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 								<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
-								<li ><a href="/category/za-xiang.html">杂项</a></li>
+								<li class="active"><a href="/category/za-xiang.html">杂项</a></li>
 						</ul>
                         <ul class="right">                                                                                                                                           
                                                                                                           
@@ -107,15 +107,27 @@
 						<div class="medium-9 small-12 columns" role="content">
 							<div class="row">
 								<div class="small-12 columns">
-									<h2>Posts Tagged With '机器学习'</h2>
+									<h2>Category: 杂项</h2>
 								</div>
 							</div>
 
 <article>
-	<h3><a href="/zui-jin-lin-he-shi-you-yi-yi.html">最近邻何时有意义</a></h3>
-	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/yue-du-bi-ji.html">阅读笔记</a> on 三 28 十月 2015. Tags: <a href="/tag/zui-jin-lin.html">最近邻</a>, <a href="/tag/ji-qi-xue-xi.html">机器学习</a>, </h6>
-	
-		<p class="continue"><a href="/zui-jin-lin-he-shi-you-yi-yi.html">Continue reading &raquo;</a></p>
+	<h3><a href="/linuxubuntuzhuang-ji-bi-bei-qing-dan.html">Linux(Ubuntu)装机必备清单</a></h3>
+	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/za-xiang.html">杂项</a> on 五 14 八月 2015.</h6>
+	<p>装机系统为Ubuntu Kylin 14.04 trusty 64-bit</p>
+<ol>
+<li>
+<p>对于能联网的机器这个步骤可以跳过啦，局域网的机器为了后续方便，最好能建立本地软件源,不然当遇到缺各种依赖包的时候，可能会疯掉的。所以，磨刀不误砍柴功，建个软件源的本地镜像先。</p>
+<div class="highlight"><pre><span class="c"># 找台能上网的机器先下载与之装机版本对应的软件源镜像，先装apt-mirror     </span>
+<span class="err">$sudo</span> <span class="err">apt-get</span> <span class="err">install</span> <span class="err">apt-mirror</span>       
+<span class="c"># 新建文件夹</span>
+<span class="err">$sudo</span> <span class="err">mkdir</span> <span class="err">-p</span> <span class="err">/downloads/ubuntu</span> <span class="err">/downloads/ubuntu/mirror</span> <span class="err">/downloads/ubuntu/skel</span> <span class="err">/downloads/ubuntu/var</span>
+<span class="c"># 配置镜像地址，系统默认的官方地址下载速度很慢，在官网上找到镜像列表，修改</span>
+<span class="c"># mirror.list选择一个国内镜像</span>
+<span class="err">$sudo</span> <span class="err">vim</span> <span class="err">/etc/apt/mirror.list</span>
+<span class="c"># 修改本地镜像地址</span>
+<span class="c">#--------- mirror.list ...</span></pre></div></li></ol>
+		<p class="continue"><a href="/linuxubuntuzhuang-ji-bi-bei-qing-dan.html">Continue reading &raquo;</a></p>
 </article>
 <hr />
 

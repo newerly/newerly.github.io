@@ -54,7 +54,7 @@
 						<li><a href="">Home</a></li>
 						<li><label>Categories</label></li>
 							<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
-							<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+							<li class="active"><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 							<li ><a href="/category/mongodb.html">Mongodb</a></li>
 							<li ><a href="/category/ruan-jian.html">软件</a></li>
 							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
@@ -83,7 +83,7 @@
 					<section class="top-bar-section">
 						<ul class="left">
 								<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
-								<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+								<li class="active"><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 								<li ><a href="/category/mongodb.html">Mongodb</a></li>
 								<li ><a href="/category/ruan-jian.html">软件</a></li>
 								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
@@ -105,21 +105,32 @@
 					<div class="row">
 						<!-- Main Content -->
 						<div class="medium-9 small-12 columns" role="content">
-							<div class="row">
-								<div class="small-12 columns">
-									<h2>Posts Tagged With '机器学习'</h2>
-								</div>
-							</div>
-
 <article>
-	<h3><a href="/zui-jin-lin-he-shi-you-yi-yi.html">最近邻何时有意义</a></h3>
-	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/yue-du-bi-ji.html">阅读笔记</a> on 三 28 十月 2015. Tags: <a href="/tag/zui-jin-lin.html">最近邻</a>, <a href="/tag/ji-qi-xue-xi.html">机器学习</a>, </h6>
-	
-		<p class="continue"><a href="/zui-jin-lin-he-shi-you-yi-yi.html">Continue reading &raquo;</a></p>
+	<h2>聚类研究随笔-0929</h2>
+	<h5><strong> 现在的问题研究路径是： </strong></h5>
+<h5><strong> 1.如何对混杂多种协议的网络数据在类别数未知的条件下进行聚类？ </strong></h5>
+<p>目前正在验证<a href="#">USCAWM算法</a>计算最佳聚类数的准确率，USCAWM算法在理论上有严格的证明，在小规模的测试数据集IRIS上验证结果基本正确。但该算法中有两个至关重要的参数，一个是相似度矩阵<em>R(Vi,Vj)</em>，一个是相似性判别阈值，其中<em>R(Vi,Vj)</em>是计算最佳聚类数的关键，当聚类数确定后，各种聚类算法都可做聚类分析，而不一定要像USCAWM算法中那样不断迭代选择最佳阈值。</p>
+<p>那么，相似度矩阵的计算实际上涉及的是相似性度量的问题。<em>f: V×V-&gt;R</em>这个相似性度量函数<em>f()</em>将原始的样本空间映射为一个有助于聚类的度量空间，这里要注意两点：</p>
+<p>a. 原始样本空间的非线性分布会给采用线性划分的聚类方法带来困难。一般的解决方法是使非线性空间线性化，如采用核函数，或选取能够进行线性划分的维度。所以，从本质上讲，如果能够将样本空间线性化，聚类的难度将大大减小，也就是说，聚类的关键是能够找到一个将样本空间映射为线性度量空间的函数，事实上，这也是很多距离度量定义的初衷。</p>
+<p>b. 有助于聚类的度量空间是指，类内紧凑，类间松弛。不论采用线性化映射还是降维选取线性划分的特征，最终目的都是要使得聚类空间是一个类内距离小，类间距离大的度量空间。</p>
+<p>因此，利用USCAWM算法得到最佳聚类数的准确性很大程度上需要依赖于合适的相似性度量函数。于是问题转变为，假如我们不知道选取何种相似性度量函数是最佳的映射方式，不同度量方法对最佳聚类数的影响有多大？</p>
+<h5><strong> 2.距离度量对基于USCAWM算法计算的最佳聚类数的扰动分析 </strong></h5>
+<p>刚才已经提到，距离度量实际上是将样本空间映射到测度空间的过程，这是任何聚类算法的必经步骤。但当我们对数据样本的分布特性知之甚少，特别是数据样本类型混杂多，分布不均匀的时候，如何选取一个合适的测度目前是没有一个基准测试或者衡量指标的。</p>
+<p>这个问题的研究可以从标准的数据集上，尝试不同的度量方法给最佳聚类数造成的扰动进行分析。这个标准的数据集一般是公认的知名测试数据，很多聚类算法的基准测试或对比测试都是基于这些数据集进行的。</p>
+<p>这样，一个新问题产生了。如果给定度量方法，数据样本空间的分布特性对聚类结果有多大影响？如何对样本空间的划分特性进行量化？</p>
+<h5><strong> 3.数据样本分布特性对聚类结果的影响 </strong></h5>
+<p>现已查到这方面早已有相关的研究，即数据样本的划分系数。研究这个问题的目的是为了衡量一个样本数据集是否在某种测度意义上具有多大的聚类能力，也就是说假如在某一测度意义上，类别之间的混淆程度有多高。</p>
+<p>对于网络数据而言，假如我们知道各协议数据的分布特性，我们可以得到某一测度意义上的聚类能力的上下界。</p>
+<p>这个问题的实验方法，一是基于标准数据集，对其进行加噪，通过不同程度的分布特性的改变，来研究聚类性能受到的影响;二是研究不同协议数据的分布特性，尤其是载荷数据的随机性对聚类结果造成的影响。</p>
+<h5><strong> 4.聚类研究的最终目的 </strong></h5>
+<p>开展以上三个问题研究的最终目的是，要对多种混杂协议的网络数据集计算最佳聚类数，其中涉及如何选取距离度量函数（问题2），基于选取的度量空间计算得到的最佳聚类数的置信度有多高（问题3）。</p>
+<p>得到了一个比较可靠的聚类数之后，就可以采取多种方法进行协议数据聚类，后续的协议特征提取就可有的放矢。</p>
+<p>实际上，这里要研究的是<strong>聚类有效性问题</strong>，以往的有效性是对同一类数据集评价不同聚类算法的结果好坏，而本研究的目的是要评价对某一聚类算法，数据集的质量多大程度上决定了结果的好坏。</p>
+	<hr/>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ji-qi-xue-xi.html">机器学习</a> on 二 29 九月 2015.</h6>
 </article>
-<hr />
 
-
+<hr/>
 						</div>
 						<!-- End Main Content -->
 						<!-- Sidebar -->

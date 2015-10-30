@@ -1,0 +1,206 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Newerly's Blog</title>
+		<meta name="description" content="">
+		<meta name="author" content="Patrick">
+
+		<link rel="stylesheet" href="/theme/css/foundation.css" />
+		<link rel="stylesheet" href="/theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="/theme/css/custom.css" />
+
+
+		<script src="/theme/js/modernizr.js"></script>
+
+		<!-- Feeds -->
+
+
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">Newerly's&nbsp;Blog</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href="">Home</a></li>
+						<li><label>Categories</label></li>
+							<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
+							<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+							<li class="active"><a href="/category/mongodb.html">Mongodb</a></li>
+							<li ><a href="/category/ruan-jian.html">软件</a></li>
+							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
+							<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
+							<li ><a href="/category/za-xiang.html">杂项</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="http://getpelican.com/">Pelican</a></li>
+							<li><a href="http://python.org/">Python.org</a></li>
+							<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+
+
+						<li><label>Social</label></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="/">Newerly's Blog</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
+								<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+								<li class="active"><a href="/category/mongodb.html">Mongodb</a></li>
+								<li ><a href="/category/ruan-jian.html">软件</a></li>
+								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
+								<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
+								<li ><a href="/category/za-xiang.html">杂项</a></li>
+						</ul>
+                        <ul class="right">                                                                                                                                           
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="/pages/about.html">About</a></li>                                    
+                                                                                                                                          
+                                                                                                                                             
+                        </ul>  
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<article>
+	<h2>Mongodb集群部署</h2>
+	<p>Mongodb集群搭建还是比较容易的一件事，只是操作稍显繁琐，有很多重复性劳动。由于官方没有发布集群配置工具，只能手动配置每一台服务器，为了节省时间和不必要的重复工作，这里给出一个一键操作Mongodb集群的方法和相应的脚本程序。</p>
+<p><strong>1. 集群环境设置</strong>   </p>
+<p>为了方便在集群多机条件下部署操作，需要为一些远程操作提供便利的系统和网络环境，例如集群机器的统一命名，ssh免登录认证，集群时统等等。假设我们要搭建一个5台机器组成的Mongodb数据库集群，我们选择Linux平台来部署集群，因为Mongodb在Linux上运行得比Windows平台上更稳定。</p>
+<p><strong>1.0 集群规划</strong>  </p>
+<p>当Mongodb数据库集群配置成一个分片+副本集的部署方案时，整个集群节点之间并没有主次之分，各节点完成相应角色任务即可。因此，我们给5台主机编号为<code>mongodb-[1~5]</code>，后续操作如无特别说明，均在<code>mongodb-1</code>主机上完成。</p>
+<p><strong>1.1 添加IP-主机名映射</strong></p>
+<p>向/etc/hosts文件中添加<em>IP-主机名映射表</em></p>
+<div class="highlight"><pre>10.0.0.1    mongodb-1
+10.0.0.2    mongodb-2
+...
+10.0.0.5    mongodb-5
+</pre></div>
+
+
+<p>这样在mongodb-1上可以直接通过主机名连接其余各台主机。</p>
+<p><strong>1.2 设置ssh免登录环境</strong></p>
+<p>执行<code>ssh-keygen -t rsa</code>，均采用默认设置，两次回车后在<code>~/.ssh/</code>路径下生成密钥，执行<a href="file/sshcopyidbat.sh">sshcopyidbat.sh</a>向<code>mongodb-[2~5]</code>拷贝密钥，这个过程中需要输入各主机的登录密码。拷贝完成后，再从<code>mongodb-1</code>登录其余主机就不需要密码了。</p>
+<p><strong>1.3 设置主机名</strong></p>
+<p>执行脚本<a href="file/changehostname.sh">changehostname.sh</a></p>
+<p><strong>1.4 拷贝文件</strong></p>
+<p>设置脚本<a href="file/copyfiles.sh">copyfiles.sh</a>中需要传输的文件，执行脚本向各主机拷贝<code>/etc/hosts</code>和mongodb的安装包，其中拷贝mongodb-linux-xxx.tar.gz文件时，会把mongdb的程序拷贝到/usr/bin/目录下，这样在命令行中就可直接调用mongodb的相关命令。</p>
+<p><strong>1.5 挂载磁盘</strong></p>
+<p>这是可选步骤，如果规划有专门的磁盘作为数据库存储空间，执行<a href="file/mountdisk.sh">mountdisk.sh</a>即完成各主机的磁盘格式化和挂载任务。当然，具体挂载的情况和挂载位置都可以通过修改脚本<code>mountdisk.sh</code>来设置。</p>
+<p><strong>2. Mongodb数据库集群设置</strong></p>
+<p>设置好集群环境，后面的事情就好说了，执行<a href="file/deploymongodbcluster.py">deploymongodbcluster.py</a>，会有四个操作选项：</p>
+<div class="highlight"><pre>1. 部署集群
+2. 启动集群
+3. 停止集群
+4. 删除集群
+</pre></div>
+
+
+<p><strong>选项1</strong>对应于尚未部署过的集群环境，脚本会按预先配置自动完成分片服务器的启动，配置服务器的启动，在配置服务器中设置好副本集，路由服务器的启动，以及数据库集群运维程序的后台运行。在这一过程中，会在指定位置新建文件夹用于存储分片、配置、路由服务器的数据、日志等文件，所有程序启动均已后台方式运行，开启日志功能。集群部署的具体配置，可以通过修改<a href="file/deploymongodbcluster.py">deploymongodbcluster.py</a>脚本的头部常量来定制，分片的部署方案可以通过修改脚本中<code>get_shards()</code>函数来自定义。本案例的分片部署如下图所示：</p>
+<p><img alt="集群配置方案" src="img/mongodb_cluster_deployment.jpg" /></p>
+<p>执行选项1,可以完成整个集群的部署和启动，因此不用再执行选项2,按脚本提示执行程序后会自动退出。</p>
+<p><strong>选项2和3</strong>对应于已经部署过的集群，完成集群的启动和停止，其中停止用<code>pkill -2 mongo</code>实现。启动和停止均不会对已有的数据库文件进行磁盘操作。</p>
+<p><strong>选项4</strong>会删除已经部署过的数据库集群的所有文件和文件夹，清空所有磁盘数据，<strong>所以执行此项一定要慎重</strong>。</p>
+<p>当然，要使四个选项相互之间能够关联执行，需要保证其部署方案是一致的，在脚本中定义好的配置，一般不用再去更改。<strong>需要指出的是</strong>，本脚本没有使用配置文件的方式启动各数据库服务器，而是通过自动生成的命令在命令行中直接启动，各命令参数在脚本的常量字段中可设。</p>
+<p><strong>3. Mongodb数据库运维</strong></p>
+<p>在集群启动的最后，即路由服务器启动完成之后，脚本会提示是否启动<code>MongodbMaintainer</code>，目前该运维程序只完成数据库容量的定时监测，当数据库容量达到预警上限（本案例中设为总存储容量的80%），开始启动历史数据删除，直至数据库容量降至预警门限以下。</p>
+<p>具体的运维策略可根据实际应用定制，例如按保存天数删除数据，按热度删除数据，按重要性删除数据等等。至于集群运行状态监测，可通过调用<code>mongostat</code>查看，集群的负载状态以及数据均衡可以通过处理相应的日志文件得到，这些功能都还有待增加，如果需要的话。</p>
+<p><strong>4. 集群性能测试</strong></p>
+<p>执行<a href="file/benchmarkmongodb.py">benchmarkmongodb.py</a>，有两个测试方案，插入一百万条记录，测试写入性能，和插入、查询同时测试，其中插入和查询的数据量比例可设置。</p>
+	<hr/>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/mongodb.html">Mongodb</a> on 一 31 八月 2015.</h6>
+</article>
+
+<hr/>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="http://getpelican.com/">Pelican</a></li>
+									<li><a href="http://python.org/">Python.org</a></li>
+									<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+								</ul>
+							</div>
+
+
+							<div class="panel">
+								<h5>Social</h5>
+								<ul class="side-nav">
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="/theme/js/jquery.js"></script>
+		<script src="/theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>

@@ -54,7 +54,7 @@
 						<li><a href="">Home</a></li>
 						<li><label>Categories</label></li>
 							<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
-							<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+							<li class="active"><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 							<li ><a href="/category/mongodb.html">Mongodb</a></li>
 							<li ><a href="/category/ruan-jian.html">软件</a></li>
 							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
@@ -83,7 +83,7 @@
 					<section class="top-bar-section">
 						<ul class="left">
 								<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
-								<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+								<li class="active"><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 								<li ><a href="/category/mongodb.html">Mongodb</a></li>
 								<li ><a href="/category/ruan-jian.html">软件</a></li>
 								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
@@ -105,21 +105,43 @@
 					<div class="row">
 						<!-- Main Content -->
 						<div class="medium-9 small-12 columns" role="content">
-							<div class="row">
-								<div class="small-12 columns">
-									<h2>Posts Tagged With '机器学习'</h2>
-								</div>
-							</div>
-
 <article>
-	<h3><a href="/zui-jin-lin-he-shi-you-yi-yi.html">最近邻何时有意义</a></h3>
-	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/yue-du-bi-ji.html">阅读笔记</a> on 三 28 十月 2015. Tags: <a href="/tag/zui-jin-lin.html">最近邻</a>, <a href="/tag/ji-qi-xue-xi.html">机器学习</a>, </h6>
-	
-		<p class="continue"><a href="/zui-jin-lin-he-shi-you-yi-yi.html">Continue reading &raquo;</a></p>
+	<h2>基于权矩阵的无监督谱聚类算法</h2>
+	<p>USCAWM(unsupervised spectral clustering algorithm based on weight matrix)算法出自《谱聚类的扰动分析》（《中国科学 E辑: 信息科学》2007年第37卷第4期:527~543），该论文以矩阵的扰动理论为工具对谱聚类进行了分析，通过理论证明得到了如下结论：</p>
+<ol>
+<li>在适当的相似度函数下，聚类的类别数等于权矩阵的特征值中值大于1的特征值的个数;    </li>
+<li>在适当的相似度函数下，以权矩阵的前<em>k</em>（聚类的类别数）个单位正交特征向量为列向量组成的行向量之间的夹角可以用来聚类;    </li>
+<li>在适当的相似度函数下，大于0的特征值约等于聚类结果中每类的样本个数。  </li>
+</ol>
+<p>这是一个相当好的结论。在聚类分析中，主要面临的以下三大类问题：</p>
+<ol>
+<li>已知类别数的条件下，对样本数据集进行聚类，这个是研究的最多，成果也最多的问题;    </li>
+<li>未知类别数的条件下，对样本数据集进行最佳聚类，给出聚类性能最优的类别数;</li>
+<li>聚类方法是否满足样本数据空间的约束条件，即是否能处理非凸分布，是否能划定非线性的聚类边界;</li>
+</ol>
+<p>谱聚类方法可以解决第3个问题，能够对任意分布的数据集进行聚类，而USCAWM算法在谱聚类的基础上，在满足一定约束的条件下，解决了第2个问题。但该算法的问题也正在于这个约束条件不稳定、不普适，一些参数的选择也需要技巧和运气，这里就涉及到聚类算法的两个核心问题：</p>
+<ol>
+<li>
+<p><strong>相似性度量如何定义</strong>  毫无疑问，在不考虑模糊聚类，即样本间是类别互斥的情况下，最优的相似性度量是能够使类内相似性最大，类间相似性最小，通常这种度量基于范式定义，但当聚类空间不为非线性空间时，这种度量不再有效。</p>
+</li>
+<li>
+<p><strong>聚类性能如何评价</strong>  聚类结果的评价指标有很多，指标之间各有侧重，尤其是当类别数未知时，根据聚类性能来判断最优类别数是尚未解决的一个问题。</p>
+</li>
+</ol>
+<p>从论文的实验结果来看，类别数的判断基本准确，符合理论分析结果。这里先梳理算法流程，然后给出python代码和重现的实验结果。</p>
+<blockquote>
+<p><strong>步骤1</strong> 构造样本点集<em>V</em>的加权图<em>G(V,E,W)</em>，两个样本点之间连边的权值表示样本点之间的相似程度;<br />
+<strong>步骤2</strong> 计算<em>W</em>的特征值（降序排列）和相应的单位正交特征向量;<br />
+<strong>步骤3</strong> 按大于1的特征值的个数确定类别数<em>k</em>;    <br />
+<strong>步骤4</strong> 将<em>W</em>的前<em>k</em>个单位正交特征向量按列组成矩阵<em>M</em>; <br />
+<strong>步骤5</strong> 计算矩阵<em>M</em>行向量之间的余弦夹角，选取阈值flag，如果夹角大于阈值，则两个样本点归为一类，反之为不同类;   <br />
+<strong>步骤6</strong> 计算所得的类别数，如果等于<em>k</em>，则结束计算，否则返回<strong>步骤5</strong>重新选择参数flag。   </p>
+</blockquote>
+	<hr/>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ji-qi-xue-xi.html">机器学习</a> on 四 20 八月 2015.</h6>
 </article>
-<hr />
 
-
+<hr/>
 						</div>
 						<!-- End Main Content -->
 						<!-- Sidebar -->

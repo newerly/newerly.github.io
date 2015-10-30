@@ -107,10 +107,61 @@
 						<div class="medium-9 small-12 columns" role="content">
 
 <article>
-	<h3><a href="/zui-jin-lin-he-shi-you-yi-yi.html">最近邻何时有意义</a></h3>
-	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/yue-du-bi-ji.html">阅读笔记</a> on 三 28 十月 2015. Tags: <a href="/tag/zui-jin-lin.html">最近邻</a>, <a href="/tag/ji-qi-xue-xi.html">机器学习</a>, </h6>
-	
-		<p class="continue"><a href="/zui-jin-lin-he-shi-you-yi-yi.html">Continue reading &raquo;</a></p>
+	<h3><a href="/mongodbwen-ti-ji-jin-mongodbji-qun-zhong-mongoswu-fa-qi-dong.html">[Mongodb问题集锦]Mongodb集群中mongos无法启动</a></h3>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/mongodb.html">Mongodb</a> on 一 31 八月 2015.</h6>
+	<p>上周在出差前，为了切换集群的连接端口，也就是把mongos的port换一下，把mongodb集群用脚本停掉，实际上用的是<code>pkill -2 mongo</code>。改好端口之后，再启动，各分片服务器、配置服务器和副本集配置均正常启动，到了最后一步启动mongos路由服务器出错了，屏显信息看不出所以然，查看mongos的日志（所以一定要开日志）找到类似如下提示，大意如此：</p>
+<div class="highlight"><pre>could not verify config server in sync: mongodb-1:57017, mongodb-2:57017 differ
+</pre></div>
+
+
+<p>就是说，集群有两台配置服务器不一致、不同步，导致路由服务无法启动。在集群中我设置有三个配置服务器。然后，就茫然了，赶着要出差的时候掉链子，当时不知道怎么弄，数据库集群就停工了半周。在网上查了一下，找到了解决方法，今天就搞定了。</p>
+<p>很简单。网上有两个方法，</p>
+<p><em>方法一</em>，把mongodb-1上的config server的内容全部dump出来，在restore到mongodb-2的config server上去 ...</p>
+		<p class="continue"><a href="/mongodbwen-ti-ji-jin-mongodbji-qun-zhong-mongoswu-fa-qi-dong.html">Continue reading &raquo;</a></p>
+</article>
+<hr />
+<article>
+	<h3><a href="/ji-yu-quan-ju-zhen-de-wu-jian-du-pu-ju-lei-suan-fa.html">基于权矩阵的无监督谱聚类算法</a></h3>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ji-qi-xue-xi.html">机器学习</a> on 四 20 八月 2015.</h6>
+	<p>USCAWM(unsupervised spectral clustering algorithm based on weight matrix)算法出自《谱聚类的扰动分析》（《中国科学 E辑: 信息科学》2007年第37卷第4期:527~543），该论文以矩阵的扰动理论为工具对谱聚类进行了分析，通过理论证明得到了如下结论：</p>
+<ol>
+<li>在适当的相似度函数下，聚类的类别数等于权矩阵的特征值中值大于1的特征值的个数;    </li>
+<li>在适当的相似度函数下，以权矩阵的前<em>k</em>（聚类的类别数）个单位正交特征向量为列向量组成的行向量之间的夹角可以用来聚类;    </li>
+<li>在适当的相似度函数下，大于0的特征值约等于聚类结果中每类的样本个数。  </li>
+</ol>
+<p>这是一个相当好的结论。在聚类分析中，主要面临的以下三大类问题：</p>
+<ol>
+<li>已知类别数的条件下，对样本数据集进行聚类，这个是研究的最多，成果也最多的问题;    </li>
+<li>未知类别数的条件下，对样本数据集进行最佳聚类，给出聚类性能最优的类别数;</li>
+<li>聚类方法是否满足样本数据空间的约束条件，即是否能处理非凸分布，是否能划定非线性的聚类边界;</li>
+</ol>
+<p>谱聚类方法可以解决第3个问题，能够对任意分布的数据集进行聚类，而USCAWM算法在谱聚类的基础上，在满足一定约束的条件下，解决了第2个问题。但该算法的问题也正在于这个约束条件不稳定、不普适，一些参数的选择也需要技巧和运气，这里就涉及到聚类算法的两个核心问题 ...</p>
+		<p class="continue"><a href="/ji-yu-quan-ju-zhen-de-wu-jian-du-pu-ju-lei-suan-fa.html">Continue reading &raquo;</a></p>
+</article>
+<hr />
+<article>
+	<h3><a href="/ju-lei-fang-fa-zong-jie.html">聚类方法总结</a></h3>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ji-qi-xue-xi.html">机器学习</a> on 三 19 八月 2015.</h6>
+	<p><img alt="聚类方法总结" src="/img/clustering_summary.png" />  <br />
+<a href="/img/clustering_summary.png">点击这里看大图</a></p>
+		<p class="continue"><a href="/ju-lei-fang-fa-zong-jie.html">Continue reading &raquo;</a></p>
+</article>
+<hr />
+<article>
+	<h3><a href="/yong-pelicanda-jian-jing-tai-wang-zhan.html">用Pelican搭建静态网站</a></h3>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ruan-jian.html">软件</a> on 一 17 八月 2015.</h6>
+	<p><strong>关于笔记工具</strong></p>
+<p>尝试过一些软件工具用于记录工作和学习笔记，先总结一下使用心得，再来讲Pelican。 <br />
+    1. Word，用Word文档按日期组织，方法原始朴素，效果甚差。<br />
+    2. OneNote，Windows平台下尚可，但操作略显麻烦，有时候对笔记的整理也不方便。<br />
+    3. Evernote，平台无关，在联网状态下可以，但离线状态就没什么大用了。<br />
+    4. WordPress，比较经典的博客系统，可以离线搭建，也可在线部署，问题是，部署起来有点庞杂，还得装apache。另外，写笔记还得进到博客的后台系统里，在网页上书写，体验不好。  <br />
+    5. Tex，书写工具中的战斗机，对于日常的小笔记来讲太重型化了，除了要写带公式的学术笔记，一般不用。  <br />
+    6. redmine，这是个项目管理的web平台，也可以用作日常事物管理，搭建不复杂，但要搞清楚怎么用，尤其是一些项目管理的术语和标准化操作，也不是很容易的一件事。如果是做团队化项目管理，倒还是值得一用。</p>
+<hr />
+<p><strong>Pelican试用初感</strong></p>
+<p>Pelican是用Python编写的一套开源静态博客生成工具，可以添加文章 ...</p>
+		<p class="continue"><a href="/yong-pelicanda-jian-jing-tai-wang-zhan.html">Continue reading &raquo;</a></p>
 </article>
 <hr />
 <article>
@@ -133,6 +184,18 @@
 </article>
 <hr />
 
+<div class="row" style="margin-bottom: -1.25em;">
+	<div class="small-12 columns text-center">
+		<div class="pagination-centered">
+			<ul class="pagination">
+				<li class="arrow"><a href="/index.html">&larr; Previous</a></li>
+				<li class=""><a href="/index.html">1</a></li>
+				<li class="current"><a href="/index2.html">2</a></li>
+				<li class="arrow unavailable"><a href="#">&rarr; Next</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
 
 						</div>
 						<!-- End Main Content -->

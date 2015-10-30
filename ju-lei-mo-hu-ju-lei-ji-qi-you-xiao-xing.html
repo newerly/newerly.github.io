@@ -1,0 +1,379 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Newerly's Blog</title>
+		<meta name="description" content="">
+		<meta name="author" content="Patrick">
+
+		<link rel="stylesheet" href="/theme/css/foundation.css" />
+		<link rel="stylesheet" href="/theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="/theme/css/custom.css" />
+
+
+		<script src="/theme/js/modernizr.js"></script>
+
+		<!-- Feeds -->
+
+
+		<!-- mathjax config similar to math.stackexchange -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$', '$'] ],
+				displayMath: [ ['$$', '$$']],
+				processEscapes: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			},
+			messageStyle: "none",
+			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+		});
+		</script>
+		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</head>
+	<body>
+		<div class="off-canvas-wrap">
+			<div class="inner-wrap">
+				<!-- mobile top bar to activate nav -->
+				<nav class="tab-bar show-for-small">
+					<section class="left-small">
+						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+					</section>
+
+					<section class="middle tab-bar-section">
+						<h1 class="title">Newerly's&nbsp;Blog</h1>
+					</section>
+				</nav>
+
+				<!-- mobile side bar nav -->
+				<aside class="left-off-canvas-menu">
+					<ul class="off-canvas-list">
+						<li><a href="">Home</a></li>
+						<li><label>Categories</label></li>
+							<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
+							<li class="active"><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+							<li ><a href="/category/mongodb.html">Mongodb</a></li>
+							<li ><a href="/category/ruan-jian.html">软件</a></li>
+							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
+							<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
+							<li ><a href="/category/za-xiang.html">杂项</a></li>
+
+						<li><label>Links</label></li>
+							<li><a href="http://getpelican.com/">Pelican</a></li>
+							<li><a href="http://python.org/">Python.org</a></li>
+							<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+
+
+
+						<li><label>Social</label></li>
+					</ul>	
+				</aside>
+
+				<!-- top bar nav -->
+				<nav class="top-bar hide-for-small-only" data-topbar>
+					<ul class="title-area">
+						<li class="name">
+							<h1><a href="/">Newerly's Blog</a></h1>
+						</li>
+					</ul>
+
+					<section class="top-bar-section">
+						<ul class="left">
+								<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
+								<li class="active"><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+								<li ><a href="/category/mongodb.html">Mongodb</a></li>
+								<li ><a href="/category/ruan-jian.html">软件</a></li>
+								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
+								<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
+								<li ><a href="/category/za-xiang.html">杂项</a></li>
+						</ul>
+                        <ul class="right">                                                                                                                                           
+                                                                                                          
+····                                                                                                                                       
+                                     <li><a href="/pages/about.html">About</a></li>                                    
+                                                                                                                                          
+                                                                                                                                             
+                        </ul>  
+					</section>
+				</nav>
+
+				<!-- Main Page Content and Sidebar -->
+				<section class="main-section">
+					<div class="row">
+						<!-- Main Content -->
+						<div class="medium-9 small-12 columns" role="content">
+<article>
+	<h2>聚类，模糊聚类及其有效性</h2>
+	<h4><strong> 1. 聚类问题 </strong></h4>
+<p>如果我们把聚类问题描述为在一堆数据中寻找一种“自然分组”，那么我们就必须定义“自然分组”的含义。从什么意义上，我们能够说同一类中的样本比来自不同类的样本更为相似？这个问题实际上涉及两个独立的子问题：</p>
+<ul>
+<li><strong>怎样度量样本之间的相似性？</strong></li>
+<li><strong>怎样衡量对样本集的一种划分的好坏？</strong></li>
+</ul>
+<h5><strong> 1) 相似性度量 </strong></h5>
+<p>一种直观的做法是将样本集映射或定义到一个度量空间中，通过距离来衡量样本之间的相似性，常用的欧几里德距离便是其一，样本集在欧几里德空间中进行度量。但这个广泛使用的度量方法存在以下需要注意的问题：</p>
+<ul>
+<li>
+<p>如果特征空间是各向同性的并且数据大致均匀分布在各个方向上，使用欧几里德距离是合理的。<strong>但对高维稀疏、各向不均衡的数据，这种度量方式就会存在问题</strong>。</p>
+</li>
+<li>
+<p>规范化是实现不变性的一种方法。选用欧几里德距离得到的聚类结果将不会因特征空间的平移和旋转而改变，所以数据点作刚体运动不会影响分类结果。但一般地说，对线性变换或其他会扭曲距离关系的变换是不能保证的。要实现位移和缩放的不变性，可以通过平移和缩放坐标轴使新样本集具有零均值和单位方差；要实现旋转不变性，可以旋转坐标轴使这些轴与样本协方差矩阵的特征向量平行，即主成分变换。</p>
+</li>
+<li>
+<p>但不能说规范化一定是必要的。通过平移和缩放使得均值为0,方差为1的规范化方法，其出发点是有效防止某些特征仅仅因为它的数值过大而主导(dominate)距离度量。对于服从正态波动的数据进行规范化操作是合理的，但如果数据的波动是因为存在多个子类，那么规范化就不合理了，因为这将改变样本数据类内和类间在原始空间中的分布，影响分类结果的正确性。<strong> 因此，对于聚类算法，一般不对原始样本集进行规范化处理？ </strong></p>
+</li>
+</ul>
+<p>几类常用相似性度量方法：</p>
+<ul>
+<li><strong>Minkowski度量</strong></li>
+</ul>
+<p>$$ d(\mathsf{x},\mathsf{y})=(\sum_{k=1}^{d}|x_k-y_k|^q)^{1/q},q\ge 1 $$</p>
+<p>当q=2时，即为欧几里德距离，度量的是两点之间的直线距离，只有此时能够保证距离度量具有平移和旋转不变性；当q=1时，为曼哈顿距离，度量的是两点之间的各维路径之和；当$q=\infty$时，为切比雪夫距离，度量的是两点之间最远维度之间的距离。</p>
+<p>Minkowski距离的缺点有二：</p>
+<p>a. 各维度无量纲，可能存在各维度数值不具有可比性，而在Minkowski度量中被同等对待了； <br />
+b. 没有考虑各维度的分布情况，即前面说的各向同性问题。</p>
+<ul>
+<li><strong>Mahalanobis度量（马氏距离）</strong></li>
+</ul>
+<p>设$X_{n_1×m},Y_{n_2×m}$为两个样本集，其中$m$表示样本的维数，$n_i,i=1,2$表示样本的数量，马氏距离定义为</p>
+<p>$$ D(Y,X)=diag(\sqrt{(Y-\mu_X)S_X^{-1}(Y-\mu_X)^T}) $$</p>
+<p>其中，$\mu_X$为$X$各维度的均值，$S_X$表示$X$的协方差矩阵。马氏距离表示，以样本集$X$的分布的中心点和方向为参考，$Y$中各样本点到$X$样本分布中心的距离。需要说明的是，利用MATLAB的mahal函数计算的马氏聚类，没有s上述公式中的开方运算，而直接是平方和，还有的计算式将$X,Y$颠倒使用，但只要计算目的明确，结果是一致的。</p>
+<p><strong>注意，这里要求$X$的样本数$n_1$要大于维数$m$</strong>。因为$rank(X_{n_1×m})\le \min{n_1,m}$，而$X$的协方差矩阵$S=E[(X-\mu_X)^T(X-\mu_X)]$为$m×m$的方阵，$rank(S)\le \min{n_1,m}$，若$n_1<m$，则$S$为奇异矩阵，其逆矩阵不存在。从线性方程组的角度理解，一个数据样本（$X_{n_1×m}$中的行向量）表示了一个$m$维特征空间的约束方程，若方程数量少于变量（维数）数量，则该方程组有无限个解，或者说给定的样本集并不能<code>紧致</code>地描述其在特征空间中的分布。当然，即使$n_1>m$也不意味着$S$就有逆矩阵，因为$rank(X)$也可能小于$m$，即存在线性相关的特征向量。</p>
+<p>下图给出了马氏距离和欧氏距离在同一样本集上的结果差异</p>
+<p><img alt="马氏距离示意图" src="/img/mahal_dist.bmp" /></p>
+<div class="highlight"><pre># matlab code
+X = mvnrnd([0;0],[1 .9;.9 1],100);
+Y = [1 1;1 -1;-1 1;-1 -1];
+
+d1 = mahal(Y,X) % Mahalanobis
+d1 =
+1.3592
+21.1013
+23.8086
+1.4727
+
+d2 = sum((Y-repmat(mean(X),4,1)).^2, 2) % Squared Euclidean
+d2 =
+1.9310
+1.8821
+2.1228
+2.0739
+</pre></div>
+
+
+<p>从上面的数值可以看出，马氏距离的结果更符合我们的直观感受，即$Y$中的两个样本点与$X$样本集的距离比另外两个与$X$样本集的距离更近，而欧氏距离没有反映出这种差别。</p>
+<p>从上图，我们也可以直观地感受到，这种差别是将$Y$中的样本分布按照$X$的分布方向进行了伸缩变换产生的。这样就很容易让我们想起LDA(线性判别分析)算法，该算法能够寻找到一个样本集分布的有效分类方向。而从公式上看，马氏距离中的样本协方差矩阵$S_X$就是LDA算法中类内散布矩阵(scatter matrix)或离散度矩阵的$n-1$倍。也就是说，马氏距离是将$Y$的样本按照$X$的散布方向进行了投影变换，再计算与$X$中心的距离，这样可以消除变量之间相关性的影响。</p>
+<p>这里还可以注意到，如果样本集$X$是各向正交且同分布的，也就是说$X$中样本的各维特征是统计独立的，那么协方差矩阵为单位阵$S=I$，马氏距离即为欧氏距离，也就是说，此时，不需要对样本集$Y$进行坐标变换。因此，欧氏距离是正交分布空间中的马氏距离。</p>
+<ul>
+<li><strong>夹角度量</strong></li>
+</ul>
+<p>除了尺度，可以使用方向进行相似性度量，余弦夹角是一种常用的度量函数。</p>
+<p>$$ s(\mathsf x,\mathsf y)=\frac{\mathsf x^T\mathsf y}{\parallel \mathsf x\parallel\parallel \mathsf y\parallel} $$</p>
+<p>当两个样本向量的夹角或方向是个有意义的衡量相似性的指标时，这个度量就比较合适，其对旋转和膨胀具有不变性，但对一般的线性变换不能保证。</p>
+<ul>
+<li><strong>Jaccard相似性</strong></li>
+</ul>
+<p>Jaccard相似性可以度量两个样本(集)之间共有特征(元素)的比例，它除了可以用于数值型数据，还可度量符号型数据。</p>
+<p>$$ J(A,B)=\frac{|A\cap B|}{|A\cup B|} $$</p>
+<p>因此，Jaccard距离可定义为</p>
+<p>$$ J_d(A,B)=1-J(A,B) $$</p>
+<p>当特征是二值的时候（取0或1）,两个样本$\mathsf x,\mathsf y$的Jaccard系数$J(\mathsf x,\mathsf y)$即为余弦系数的常数C倍。而此时，Jaccard系数也可写成</p>
+<p>$$ s(\mathsf x,\mathsf y)=\frac{\mathsf x^T\mathsf y}{\mathsf x^T\mathsf x+\mathsf y^T\mathsf y-\mathsf x^T\mathsf y} $$</p>
+<p>该系数有时称为Tanimoto系数（距离），常在信息检索和生物分类学中出现。</p>
+<p>另外一种变形是</p>
+<p>$$ s(\mathsf x,\mathsf y)=\frac{\mathsf x\mathsf y}{dim} $$</p>
+<p>其中，$dim$表示特征维数，上式表示共有特征与特征维数的比例。</p>
+<ul>
+<li><strong>汉明距离</strong></li>
+</ul>
+<p>在二值情况下，汉明距离是曼哈顿距离的常数倍，在matlab中常数为向量的维数。</p>
+<ul>
+<li>
+<p><strong>相关系数</strong></p>
+</li>
+<li>
+<p><strong>互信息熵</strong></p>
+</li>
+</ul>
+<p>互信息熵度量的是不同样本集在概率分布上的相似性。</p>
+<p>度量理论中的基本问题涉及距离或相似性函数，两个向量间的相似性计算总要涉及到它们的分量值的组合。然而在许多模式识别的应用中，特征向量的各个分量常常不具有可比性。应该如何处理一个各分量代表不同物理意义的向量？一般不存在通用的方法来解答这些问题。一旦设计者选择了一个相似性函数或对数据用某种方法进行了规范化处理，就表示有额外的信息被引入来赋予这些操作物理意义。因此，在选择相似性度量函数和特征量时，要注意其中可能存在的陷阱。</p>
+<hr />
+<h5><strong>2) 聚类准则</strong></h5>
+<ul>
+<li><strong>误差平方和准则</strong></li>
+</ul>
+<p>$$ J_e=\sum_{i=1}^{c}\sum_{\mathsf x\in \mathcal D_i}\parallel \mathsf x-\mathsf m_i\parallel^2 $$</p>
+<p>其中$\mathsf m_i=\frac{1}{n_i}\sum_{\mathsf x\in \mathcal D_i}\mathsf x$，$\mathcal D_i$为第$i$个聚类，$n_i$为第i个聚类中的样本数量。这是个简单直观且应用广泛的聚类准则，也称为最小方差划分(minimum variance partition)。该准则适用于类别边界清晰，团簇特征显著，即类内数据稠密，类间样本稀疏的情况。但即使满足这一条件，该准则还是存在一个潜在的问题，即当不同聚类所包含的样本数相差较大时，将一个大的类别分割开反而有可能具有更小的误差平方和。<strong>这个由聚类样本数不均衡导致的聚类有效性下降的问题，目前还没有得到很好解决。</strong></p>
+<p>将上述公式做一个简单变换可以得到下面的表达式</p>
+<p>$$ J_e=\frac{1}{2}\sum_{i=1}^{c}n_i\bar{s_i} $$</p>
+<p>其中</p>
+<p>$$ \bar{s_i}=\frac{1}{n_i^2}\sum_{\mathsf x\in\mathcal D_i}\sum_{\mathsf x^1\in\mathcal D_i}\parallel\mathsf x-\mathsf x^1\parallel^2 $$</p>
+<p>$\bar{s_i}$表示第$i$类里点与点之间距离平方的均值，也表明最小误差平方和准则$J_e$是用欧几里德距离作为相似性度量。这也意味着我们可以替换其中的相似性度量，来构造其它准则函数。由于基于欧几里德距离的聚类只能在样本空间中划出线性类别边界，而若替换这一相似性度量函数，引入非线性的相似性度量，则可以解决样本集在聚类空间中的非线性分布带来的问题。基于这一泛化定义，最优划分就是使得准则函数取极值的划分，并希望聚类结果能够反映出数据固有的内部结构。</p>
+<ul>
+<li><strong>散布准则</strong></li>
+</ul>
+<p>定义类内和类间散布矩阵</p>
+<p>$$ S_W=\sum_{i=1}^cS_i $$ 
+$$ S_B=\sum_{i=1}^c n_i(\mathsf m_i-\mathsf m)(\mathsf m_i-\mathsf m)^T $$</p>
+<p>其中$S_i$为第$i$类的散布矩阵，$m_i$为第$i$类的均值向量，$m$为总体均值向量，$n_i$为第$i$类的样本数量。</p>
+<p>$$ S_i=\sum_{\mathsf x\in\mathcal D_i}(\mathsf x-\mathsf m_i)(\mathsf x-\mathsf m_i)^T $$
+$$ \mathsf m_i=\frac{1}{n_i}\sum_{\mathsf x\in\mathcal D_i}\mathsf x $$
+$$ \mathsf m=\frac{1}{n}\sum_{\mathcal D}\mathsf x=\frac{1}{n}\sum_{i=1}^{c}n_i\mathsf m_i $$</p>
+<p>类内散布矩阵和类间散布矩阵是有划分决定的，大致上，这两个量之间存在一种互补关系：如果类内离散度增大，则类间离散度就会减少。因此，当试图最小化类内离散度时，最大化类间离散度是同时进行的。</p>
+<p><strong>基于迹的准则</strong></p>
+<p>粗略地说，迹代表的是散布半径的平方，因为它正比于数据在各坐标轴方向上的方差的和。因此类内散布矩阵$S_W$的迹最小化与最小化误差平方和等价。</p>
+<p>$$ tr[S_W]=\sum_{i=1}^{c}tr[S_i]=\sum_{i=1}^{c}\sum_{\mathsf x\in\mathcal D_i}\parallel\mathsf x-\mathsf m_i\parallel^2=J_e $$</p>
+<p>又因为总体散布矩阵$tr[S_T]=tr[S_W]+tr[S_B]$并且$tr[S_T]$与具体的划分方式无关，所有在最小化类内准则$J_e=tr[S_W]$的同时，也最大化了类间准则$tr[S_B]=\sum_{i=1}^{c}n_i\parallel \mathsf m_i -\mathsf m\parallel^2$。因此，这三个准则之间是相互等价的。</p>
+<p><strong>基于行列式的准则</strong></p>
+<p>大约来说，行列式衡量的是散布体积的平方，因为它正比于数据在各个主轴方向上方差的积。当类别数$c\le dim$时，$S_B$会是奇异阵(原因同马氏距离中协方差矩阵$S$的逆矩阵存在性问题)，而且如果$n-c&lt;d$时，$S_B$也会是奇异的。因此，我们选择$S_W$作为准则函数参量，这里假定$S_W$是非奇异的，尽管它也可能是奇异的。</p>
+<p>$$ J_d=|S_W|=|\sum_{i=1}^{c}S_i| $$</p>
+<p>最小化$J_d$得到的划分有时候是同最小化$J_e$一致的。$J_e$会因为坐标轴的缩放而改变结果，但这个问题不会影响基于$J_d$的聚类。令$T$为非奇异阵，$x'=Tx$，则$J'_d=det(T)^2J_d$，$J'_e=tr(T^TT)^2J_e$，$J'_d$的极值和聚类划分不会因为$x'$的线性变换而改变。所以，在未知线性变换的场合下准则$J_d$是合适的。</p>
+<p><strong>基于不变量的准则</strong></p>
+<p>为了使类内距离尽可能小，类间距离尽可能大，定义最大化某个基于$S_W^{-1}S_B$准则是合理的。因为其特征值$\lambda_i,i=1,\dots d$衡量的是类间散布和类内散布在对应特征向量方向上的比值，因此能产生较大特征值的划分是比较令人满意的。由于矩阵$S_B$的秩不超过$c-1$，因而最多有$c-1$个非零特征值。<strong>但好的聚类划分是指那些非零特征值较大的划分</strong>。由于特征值具有线性变换不变性，所对应的最优划分也具有不变性，基于这类不变量，可以设计出一类等效的聚类准则函数：</p>
+<p>$$ tr[S_W^{-1}S_B]=\sum_{i=1}^{d}\lambda_i $$</p>
+<p>$$ J_f=tr[S_T^{-1}S_W]=\sum_{i=1}^d\frac{1}{1+\lambda_i} $$</p>
+<p>$$ \frac{|S_W|}{|S_T|}=\prod_{i=1}^{d}\frac{1}{1+\lambda_i} $$</p>
+<p>这里可以注意到，如果总体散布矩阵$S_T=S_W+S_B$通过旋转和缩放坐标轴变成了单位阵，那么最小化$J_f$就等价于$J_e$，最小化$|S_W|/|S_T|$等价于|S_W|。</p>
+<p><strong>如果通过缩放坐标轴或任何其它的线性变换可以明显观察到数据可以有多种不同的划分，那么这些可能的划分都会反映在用不变量作准则进行聚类的过程中，不变量准则函数很可能出现多个峰值的情况，因而比较难优化。</strong></p>
+<h5><strong>参考文献</strong></h5>
+<p>Duda, 模式分类, p432~p468 <br />
+MATLAB,pdist和mahal函数文档</p>
+<hr />
+<h4><strong> 2. 模糊聚类 </strong></h4>
+<p>在经典的聚类问题中，样本被认为完全属于某一类别，而在无先验知识的情况下，我们很难肯定样本对类别归属的准确性，因此对每个样本引入各类别的隶属度能够更加客观地反映数据的内部结构。引入隶属度的一类经典聚类算法便是模糊$c$-均值聚类，其在误差平方和准则的基础上为各样本做了隶属度加权，表示样本归属于某一类别的可能性。</p>
+<p>$$ J_{fuzzy}=\sum_{i=1}^n\sum_{j=1}^c u_{ij}^m\parallel\mathsf x_i-\mathsf m_j\parallel^2 $$</p>
+<p>满足约束条件</p>
+<p>$$ \sum_{j=1}^c u_{ij}=1,1\le i\le n $$
+$$ u_{ij}\ge 0, 1\le i\le n, 1\le j\le c $$
+$$ \sum_{i=1}^n u_{ij}&gt;0, 1\le j\le c $$</p>
+<p>其中，$u_{ij}$是样本$\mathsf x_i$对类别$j$的隶属度，$m$为模糊系数。当</p>
+<p>$$u_{ij}=1,d_{ij}=\min_{1\le r\le c}d_{ir};u_{ij}=0,其它$$</p>
+<p>时，或者当$m=0$时，有</p>
+<p>$$J_{fuzzy}=J_e$$</p>
+<p>利用拉格朗日乘子法求解$J_{fuz}$的不动点，有</p>
+<p>$$ \mathsf m_j^*=\frac{\sum_{i=1}^n(u_{ij})^m\mathsf x_i}{\sum_{i=1}^n(u_{ij})^m} $$</p>
+<p>$$ u_{ij}^*=(\sum_{k=1}^c(\frac{d_{ij}}{d_{ik}})^{\frac{2}{m-1}})^{(-1)} $$</p>
+<p>其中，$d_{ij}=\parallel\mathsf x_i-\mathsf m_j\parallel$。$d_{ij}$的广义距离定义为</p>
+<p>$$ d_{ij}^2=\parallel\mathsf x_i-\mathsf m_j\parallel_A^2=(\mathsf x_i-\mathsf m_j)^TA(\mathsf x_i-\mathsf m_j) $$</p>
+<p>因此</p>
+<p>$$ 当A=I时，d_{ij}为欧氏距离 $$</p>
+<p>$$ 当A=S_{\mathsf m}^{-1}时，d_{ij}为马氏距离，其中，S_{\mathsf m}^{-1}=\sum_{j=1}^c(\mathsf m_j-\bar{\mathsf m})(\mathsf m_j-\bar{\mathsf m})^T, \bar{m}=\frac{\sum_{j=1}^c\mathsf m_j}{c} $$</p>
+<p>通过迭代$\mathsf m_j,u_{ij}$直至收敛，得到基于隶属概率的可能的最优划分。<code>但与$c$-均值算法一样，只用类中心来表示类，这样只适合与发现球状类型的团簇，在很多情况下，算法对噪声数据敏感。</code>Bezdek等人已经证明FCM算法只能保证收敛到上述不动点，不能保证收敛到目标函数的极小值点，有时会收敛到目标函数的鞍点。<strong>根据$u_{ij}$归一化的约束条件，样本点$\mathsf x_i$隶属于第$j$类的概率隐含受到了聚类数目的影响，当聚类数与真实情况不符合时，会产生较大的偏差。</strong></p>
+<p>这里给出关于$J_{fuz}$的一个几何解释，有助于理解这个目标函数的设计原理。将$u_{ij}^*$代入$J_{fuz}$，可得</p>
+<p>$$ J_{fuzzy}^*=\sum_{i=1}^n(\sum_{j=1}^cd_{ij}^{2/(1-m)})^{(1-m)} $$</p>
+<p>该式表明$J_{fuz}$最小化问题实际上是选取合理的聚类中心，使得每个样本到各聚类中心的“调和平均距离”最小的问题。另外，将约束条件$\sum_{j=1}^cu_{ij}=1$代入拉格朗日函数中</p>
+<p>$$ L(J_{fuz};\lambda)=\sum_{i=1}^n\sum_{j=1}^cu_{ij}^md_{ij}^2+\lambda(1-\sum_{j=1}^cu_{ij}) $$</p>
+<p>求导</p>
+<p>$$ \frac{\partial L(J_{fuz};\lambda)}{\partial u_{ij}}=mu_{ij}^{m-1}d_{ij}^2-\lambda=0 $$</p>
+<p>得</p>
+<p>$$ u_{ij}^{m-1}d_{ij}^2=\frac{\lambda}{m} $$</p>
+<p>这意味着对于两个聚类中心$\mathsf m_p$和$\mathsf m_q$，$u_{ip}^{m-1}d_{ip}^2=u_{iq}^{m-1}d_{iq}^2$，即样本$i$到各聚类中心的加权距离是相等的，注意，当$m=1$时，该等式不成立。因此$u_{ij}$可视为一个“等距加权”值。进一步地，令$v=\max_{1\le j\le c}u_{ij}$，可将$J_{fuz}$改写成</p>
+<p>$$ J_{fuz}=\sum_{i=1}^n\sum_{j=1}^c u_{ij}(u_{ij}^{m-1}d_{ij}^2)=\sum_{i=1}^n(v^{m-1}d_v^2\sum_{j=1}^c u_{ij})=\sum_{i=1}^n v^{m-1}d_v^2 $$</p>
+<p>上式与硬划分的$c$-均值聚类的准则函数相比，仅多了一个隶属度加权。</p>
+<p>上面已经说明$J_{fuz}$表示样本到聚类中心的“调和平均距离”，相比于误差平方和函数，多了一个$m$系数，下面的定理可以说明为什么$m$会被称为模糊系数。</p>
+<p>$$ \lim_{m\to +\infty}u_{ij}^*=(\lim_{m\to+\infty}\sum_{k=1}^c(\frac{d_{ij}}{d_{kj}})^{\frac{2}{m-1}})^{-1}=(\sum_{k=1}^c\lim_{m\to+\infty}(\frac{d_{ij}}{d_{kj}})^{\frac{2}{m-1}})^{-1}=\frac{1}{c} $$</p>
+<p>$$ \lim_{m\to+\infty}\mathsf m_j^*=\frac{\sum_{i=1}^n\mathsf x_i}{n} $$</p>
+<p>由上式可见，当m指数增大时，模糊聚类的类别中心趋近于整个样本集的中心，且各样本对各类的隶属的可能性趋于均等，也就是说此时各类的聚类边界是最模糊，混淆在一起的。因此，$m$的取值关系到聚类结果的准确性，而对于$m$的取值并没有得到严格的理论分析，各文献给出了一个惯用的经验区间$[1.5,2.5]$，同时Bezdek等人从算法收敛性角度得出$m$的取值与样本数量$n$有关的结论，建议$m$取值的下界为$n/(n-2)$。但根据于剑等人的研究，对于某些数据分布，$m$的最佳取值也可能不在[1.5,2.5]的区间之内。他们人为构造了一个数据集用于模糊聚类，不同数据维数条件下，$m$的实验有效值呈单调递减，<strong>但文章没有给出这一现象的理论分析</strong>。</p>
+<p>因此，<code>模糊系数$m$的最优值与样本数量$n$和样本维数$d$的关系目前尚无理论分析</code>，直觉上，$n$越小，$d$越大，聚类边界会越模糊，为了得到好的聚类结果，$m$应该相应地减小。另外，<code>似乎目前没有看到当$m&lt;1$的聚类研究</code>，这个区间上聚类的结果会是怎样？<code>目前，对于$m$最优值的选取都是采用遍历搜索区间，计算效率较低，也不能保证收敛的是全局最优解</code>。</p>
+<p>关于$m$的取值区间，于剑在《论模糊$c$-均值算法的模糊指标》一文中证明，存在比$n/(n-2)$具实用意义的下界。通过求解$J_{fuz}^<em>$的Hessian矩阵的正定性来判断最优解$u_{ij}^</em>$的稳定性和是否是$J_{fuz}$的局部极小值，如果是，则$u_{ij}^*$极可能是数据聚类的最优划分。于剑证明了以下事实</p>
+<p>$$ (U^*,\bar{\mathsf x})是FCM的稳定解的充要条件是\lambda_\max(C_X)&lt;0.5且m\ge \frac{1}{1-2\lambda_\max(C_X)} $$</p>
+<p>其中，$U^*=[\frac{1}{c}]_{c×n}$，</p>
+<p>$$ C_X=\sum_{i=1}^n\frac{(\mathsf x_i-\bar{\mathsf x})(\mathsf x_i-\bar{\mathsf x})^T}{n\parallel\mathsf x_i-\bar{\mathsf x}\parallel^2} $$</p>
+<p><code>考虑一下，$C_X$与拉普拉斯矩阵的关系，为谱的扰动分析提供判决依据</code></p>
+<p>如果令$\lambda_1,\lambda_2,\dots,\lambda_s$是矩阵$C_X$的$s$个特征值，当存在稳定解时，$C_X$是半正定的，因此有$\lambda_i\ge 0,1\le i\le s$。注意到$\sum_{i=1}^s\lambda_i=1$，则有$1/s\le\lambda_\max(C_X)\le 1$。进而根据上述$m$与$\lambda_\max$的关系不等式，可得如果$1&lt;m&lt;\frac{2}{s-2}$或者$s&lt;3$，则$(U^<em>,\bar{\mathsf x})$肯定不是FCM的一个稳定解。当然，我们也应该避免$(U^</em>,\bar{\mathsf x})$成为稳定解，因为此时$(U^<em>,\bar{\mathsf x})$作为FCM输出的结果可能性很大，且这种数据划分是无意义的聚类，$(U^</em>,\bar{\mathsf x})$为此也被称为FCM的平凡解。基于这一结论，可以构造两个选择模糊指标的规则。</p>
+<p><strong>规则1</strong> $m\le\frac{1}{1-2\lambda_\max(C_X)}$，如果$\lambda_\max(C_X)&lt;0.5$</p>
+<p><strong>规则2</strong> $m\le\frac{s}{s-2}$，如果$s\ge 3$</p>
+<p>规则1是在破坏FCM稳定解的充要条件的基础上得到的，而规则2是规则1的近似，为了减小计算量，避免对$C_X$进行特征值分解。`如果遵守规则1或2，$(U^*,\bar{\mathsf x})$由于是不稳定解，实际被FCM作为聚类结果输出的可能性很小。故满足规则1的$m$皆可被视为理论上有效的FCM算法模糊指标。</p>
+<p>当数据集的维数为1或者2时，$\lambda_\max(C_X)\ge0.5$恒成立，$(U^*,\bar{\mathsf x})$恒为FCM的不稳定解，因此，对于任意的1维或2维数据，以及任意数据集只要其$\lambda_\max(C_X)\ge 0.5$，理论上，任意$m$皆可为理论上有效的FCM算法模糊指标。以上的结论说明$\lambda_\max(C_X)$是数据自身的一个统计量，因此选择模糊指标$m$也依赖于数据本身。</p>
+<h5><strong>参考文献</strong></h5>
+<p>范九伦, FCM算法中隶属度的新解释及其应用  <br />
+高新波, 模糊$c$-均值聚类算法中加权指数$m$的研究 <br />
+于剑, 关于FCM算法中的权重指数$m$的一点注记  <br />
+Bezdek, FCM: The Fuzzy c-Means Clustering Algorithm <br />
+于剑, 论模糊$c$-均值算法的模糊指标</p>
+<hr />
+<h4><strong>3. 聚类有效性</strong></h4>
+<p>由于模糊聚类引入了模糊系数，$J_{fuz}$在不同模糊系数时取得的局部极小值，哪个是对数据聚类的最佳划分是一个尚无定论的问题，该问题也被称为聚类有效性(cluster validity)问题。广义上讲，聚类有效性包括聚类质量的度量、聚类算法对某种特殊数据集的适用程度以及某种划分的最佳聚类数目。现有的模糊聚类有效性函数大致可以分为基于数据集模糊划分和基于数据集几何结构两类。</p>
+<h5><strong>1) 基于数据集模糊划分的模糊聚类有效性函数</strong></h5>
+<p>基于模糊划分的模糊聚类有效性函数的理论基础是好的聚类对应于数据集较“分明”的划分。其优点是易于计算，适用于数据量小且分布比较好的数据集，但与数据集的几何特征缺乏直接联系，对于类间有交叠的数据不能很好地处理。</p>
+<p>Bezdek提出了第一个有效性指标——划分系数$V_{pc}(U)$，旨在度量各聚类间的重叠程度。</p>
+<p>$$ V_{pc}(U)=\frac{1}{n}\sum_{i=1}^n\sum_{j=1}^cu_{ij}^2 $$</p>
+<p>同时，Bezdek还定义了一个基于信息熵的划分熵指标$V_{pe}$</p>
+<p>$$ V_{pe}(U)=-\frac{1}{n}\sum_{i=1}^n\sum_{j=1}^cu_{ij}\log_{b}u_{ij} $$</p>
+<p>其中，$U=[u_{ij}]_{c×n}$。$(U^<em>,c^</em>)$为最佳有效聚类划分和最佳聚类数，当满足以下条件</p>
+<p>$$V_{pc}(U^<em>,c^</em>)=\max_c{\max_{\Omega_c}V_{pc}(U,c)}$$</p>
+<p>$$V_{pe}(U^<em>,c^</em>)=\min_c{\min_{\Omega_c}V_{pe}(U,c)}$$</p>
+<h5><strong>2) 基于数据集几何结构的模糊聚类有效性函数</strong></h5>
+<p>Xie和Beni从几何结构出发提出了基于分离性的指标$V_{xb}$，这个指标是通过极大化类间距离和极小化类内距离的形式构造的。</p>
+<p>$$ V_{xb}=\frac{J_{juz}}{Sep(M)}=\frac{\sum_{i=1}^n\sum_{j=1}^cu_{ij}^m\parallel \mathsf x_i-\mathsf m_j\parallel^2}{n\min_{i\neq j}\parallel\mathsf m_i-\mathsf m_j\parallel^2} $$</p>
+<h5><strong>3) $V_{pc},V_{pe}$的性质</strong></h5>
+<p><strong> 定理1 </strong> 当$1&lt;c&lt;n$时，有    <br />
+1. $\frac{1}{c}\le V_{pc}(u,c)\le 1$; <br />
+2. $V_{pc}(U)=1\Leftrightarrow U是硬划分$ <br />
+3. $V_{pc}(U)=1/c\Leftrightarrow U=[1/c]_{c×n}$   </p>
+<p><strong> 定理2 </strong> 当$1&lt;c&lt;n$时，有    <br />
+1. $0\le V_{pe}(u,c)\ln c$; <br />
+2. $V_{pe}(U)=1\Leftrightarrow U是硬划分$ <br />
+3. $V_{pe}(U)=1/c\Leftrightarrow U=[1/c]_{c×n}$   </p>
+<h5><strong>参考文献</strong></h5>
+<p>范九伦, 基于可能性分布的聚类有效性 <br />
+于剑, 关于聚类有效性函数FP(U,c)的研究 <br />
+范九伦, 聚类有效性函数：熵公式 <br />
+于剑, 关于聚类有效性函数熵公式HP(u,c)*   </p>
+	<hr/>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ji-qi-xue-xi.html">机器学习</a> on 三 14 十月 2015.</h6>
+</article>
+
+<hr/>
+						</div>
+						<!-- End Main Content -->
+						<!-- Sidebar -->
+						<aside class="medium-3 hide-for-small-only columns">
+							<div class="panel">
+								<h5>Links</h5>
+								<ul class="side-nav">
+									<li><a href="http://getpelican.com/">Pelican</a></li>
+									<li><a href="http://python.org/">Python.org</a></li>
+									<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+								</ul>
+							</div>
+
+							<div class="panel">
+								<h5>Tags</h5>
+								<ul class="tag-cloud">
+								</ul>
+							</div>
+
+
+							<div class="panel">
+								<h5>Social</h5>
+								<ul class="side-nav">
+								</ul>
+							</div>
+						</aside>
+						<!-- End Sidebar -->
+					</div>
+
+					<!-- Footer -->
+					<footer class="row">
+						<div class="medium-9 small-12">
+							<hr/>
+							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
+						</div>
+					</footer>
+					<!-- End Footer -->
+				</section>
+				<a class="exit-off-canvas"></a>
+			</div><!--off-canvas inner-->
+		</div><!--off-canvas wrap-->
+
+		<script src="/theme/js/jquery.js"></script>
+		<script src="/theme/js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>

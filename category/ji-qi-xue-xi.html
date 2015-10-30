@@ -54,7 +54,7 @@
 						<li><a href="">Home</a></li>
 						<li><label>Categories</label></li>
 							<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
-							<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+							<li class="active"><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 							<li ><a href="/category/mongodb.html">Mongodb</a></li>
 							<li ><a href="/category/ruan-jian.html">软件</a></li>
 							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
@@ -83,7 +83,7 @@
 					<section class="top-bar-section">
 						<ul class="left">
 								<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
-								<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
+								<li class="active"><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 								<li ><a href="/category/mongodb.html">Mongodb</a></li>
 								<li ><a href="/category/ruan-jian.html">软件</a></li>
 								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
@@ -105,17 +105,12 @@
 					<div class="row">
 						<!-- Main Content -->
 						<div class="medium-9 small-12 columns" role="content">
+							<div class="row">
+								<div class="small-12 columns">
+									<h2>Category: 机器学习</h2>
+								</div>
+							</div>
 
-<article>
-	<h3><a href="/er-jin-zhi-shu-ju-gou-cheng-de-chi-san-kong-jian-ji-qi-zhuan-huan-guan-xi.html">二进制数据构成的离散空间及其转换关系</a></h3>
-	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/shu-ju-fen-xi.html">数据分析</a> on 六 17 十月 2015.</h6>
-	<p>对于网络二进制数据，我们常以不同的单位进行划分统计。最细粒度的是以比特为单位，二进制数据集在${0,1}^{2^n}$离散空间中分布，其中$n$为二进制数据的比特个数。当以字节为单位进行统计时，二进制数据集在${i,i\in{0,1,2,\dots,255}}^{2^(n/8)}$的离散空间中分布。其它以不同粒度进行统计，情况类似。</p>
-<p>要对不同协议的原始二进制数据进行聚类、分类，一个前提假设就是这些数据在离散空间中的分布不是随机均匀散布的，如果是随机均匀散布，则数据集不具备可识别特征，现在的研究就是要先证实这个假设前提，然后进行识别分析。因此，对协议的二进制数据进行聚类分析就是为了验证在某一离散空间中不同协议数据是否具有团簇特征。</p>
-<p>而二进制数据在以不同基底构成的离散空间之间存在着转换关系，以比特和字节为单位的离散空间为例，以字节为单位的离散空间是将以比特为单位的离散空间，按8比特，或认为是8个维度构成的一个子空间进行压缩映射：</p>
-<p>$$f:\mathcal {0,1}^8\rightarrow{i,i ...</p>
-		<p class="continue"><a href="/er-jin-zhi-shu-ju-gou-cheng-de-chi-san-kong-jian-ji-qi-zhuan-huan-guan-xi.html">Continue reading &raquo;</a></p>
-</article>
-<hr />
 <article>
 	<h3><a href="/ju-lei-mo-hu-ju-lei-ji-qi-you-xiao-xing.html">聚类，模糊聚类及其有效性</a></h3>
 	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ji-qi-xue-xi.html">机器学习</a> on 三 14 十月 2015.</h6>
@@ -185,96 +180,33 @@
 </article>
 <hr />
 <article>
-	<h3><a href="/appshu-ju-bao-chu-bu-fen-xi.html">APP数据包初步分析</a></h3>
-	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/shu-ju-fen-xi.html">数据分析</a> on 一 28 九月 2015.</h6>
-	<p>应用层协议报文的特点：</p>
+	<h3><a href="/ji-yu-quan-ju-zhen-de-wu-jian-du-pu-ju-lei-suan-fa.html">基于权矩阵的无监督谱聚类算法</a></h3>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ji-qi-xue-xi.html">机器学习</a> on 四 20 八月 2015.</h6>
+	<p>USCAWM(unsupervised spectral clustering algorithm based on weight matrix)算法出自《谱聚类的扰动分析》（《中国科学 E辑: 信息科学》2007年第37卷第4期:527~543），该论文以矩阵的扰动理论为工具对谱聚类进行了分析，通过理论证明得到了如下结论：</p>
 <ol>
-<li>以TCP作为传输层协议，HTTP作为应用层协议传输占很大比例，HTTP协议的载荷再封装自定义消息内容，同时也有基于XMPP自定义的通信协议;</li>
-<li>一份报文，即一条TCP连接，在其载荷内容中可能包含多个消息;</li>
-<li>可能存在跨流传输同一个报文的情况。</li>
+<li>在适当的相似度函数下，聚类的类别数等于权矩阵的特征值中值大于1的特征值的个数;    </li>
+<li>在适当的相似度函数下，以权矩阵的前<em>k</em>（聚类的类别数）个单位正交特征向量为列向量组成的行向量之间的夹角可以用来聚类;    </li>
+<li>在适当的相似度函数下，大于0的特征值约等于聚类结果中每类的样本个数。  </li>
 </ol>
-<p>这些特点带来的问题是：</p>
+<p>这是一个相当好的结论。在聚类分析中，主要面临的以下三大类问题：</p>
 <ol>
-<li>无法将应用层报文与消息样本一一对应，因为存在一份应用层报文包含多个自定义消息的情况;</li>
-<li>消息中传输的数据内容较大，而报头较短;</li>
+<li>已知类别数的条件下，对样本数据集进行聚类，这个是研究的最多，成果也最多的问题;    </li>
+<li>未知类别数的条件下，对样本数据集进行最佳聚类，给出聚类性能最优的类别数;</li>
+<li>聚类方法是否满足样本数据空间的约束条件，即是否能处理非凸分布，是否能划定非线性的聚类边界;</li>
 </ol>
-		<p class="continue"><a href="/appshu-ju-bao-chu-bu-fen-xi.html">Continue reading &raquo;</a></p>
+<p>谱聚类方法可以解决第3个问题，能够对任意分布的数据集进行聚类，而USCAWM算法在谱聚类的基础上，在满足一定约束的条件下，解决了第2个问题。但该算法的问题也正在于这个约束条件不稳定、不普适，一些参数的选择也需要技巧和运气，这里就涉及到聚类算法的两个核心问题 ...</p>
+		<p class="continue"><a href="/ji-yu-quan-ju-zhen-de-wu-jian-du-pu-ju-lei-suan-fa.html">Continue reading &raquo;</a></p>
 </article>
 <hr />
 <article>
-	<h3><a href="/du-shu-bi-ji-pythongao-shou-zhi-lu.html">[读书笔记]Python高手之路</a></h3>
-	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/du-shu-bi-ji.html">读书笔记</a> on 一 07 九月 2015.</h6>
-	<p>此书中文名取得有点讨巧，原书名是Python黑客手册，但两个名字都跟书的内容没甚关系。这书主要介绍了一些比较实用的Python工程项目技巧，有很多在大型Python软件或库研发过程中使用的工具介绍。涉及文档、分发、测试、性能优化和一些编程技巧。有些东西对于现在个人的一些小规模代码可能不太用的上，有些还是值得借鉴。</p>
-<p><strong>1. 项目结构</strong></p>
-<p>图1-1给出了一个项目的标准的文件层次结构，包含文档、代码、setup.py、README.rst、requirements.txt以及代码中的测试案例和测试数据。</p>
-<p>版本编号应该遵从正则表达式格式：N[.N]+[{a|b|c|rc}N][.postN][.devN]</p>
-<p><strong>2. 文档生成</strong></p>
-<p>采用Sphinx</p>
-<p><strong>3. 测试</strong></p>
-<p>使用unittest、mock和testscenarios模块</p>
-<p><strong>4. 高级技巧</strong></p>
-<p>用好装饰器、函数式编程和上下文管理器，可以使得代码简洁高效，可维护性好，也能使代码更专业一些。</p>
-<p><strong>5. 一些架构</strong></p>
-<p>多进程、异步和事件驱动架构</p>
-		<p class="continue"><a href="/du-shu-bi-ji-pythongao-shou-zhi-lu.html">Continue reading &raquo;</a></p>
-</article>
-<hr />
-<article>
-	<h3><a href="/wiresharkchi-xian-an-zhuang.html">Wireshark离线安装</a></h3>
-	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ruan-jian.html">软件</a> on 二 01 九月 2015.</h6>
-	<p>Wireshark采用编译的方式安装会遇到许多依赖关系的问题，在离线环境中这么搞会很烦躁。一个简单的办法是在一台联网电脑上在线安装，然后把安装包都拷到离线电脑上，用<code>dpkg</code>来安装。</p>
-<div class="highlight"><pre><span class="err">#</span><span class="x"> 找一台联网电脑安装wireshark</span>
-<span class="p">$</span><span class="nv">sudo</span><span class="x"> apt-get install wireshark</span>
-<span class="err">#</span><span class="x"> wireshark的安装包会先下载到本地，对于ubuntu系统，一般放在`/var/cache/apt/archieves`</span>
-<span class="x">路径下。如果在联网电脑上安装没有问题，把这些deb的安装包拷贝到离线主机上，在同目录下执行</span>
-<span class="p">$</span><span class="nv">sudo</span><span class="x"> dpkg -i libc-ares2_1.10.0-2_amd64.deb libsmi2ldbl_0.4.8+dfsg2-8ubuntu2_amd64.deb </span>
-<span class="x">libwireshark3_1.10.6-1_amd64.deb libwireshark-data_1.10.6-1_all.deb </span>
-<span class="x">libwiretap3_1.10.6-1_amd64.deb libwsutil3_1.10.6-1_amd64 ...</span></pre></div>
-		<p class="continue"><a href="/wiresharkchi-xian-an-zhuang.html">Continue reading &raquo;</a></p>
-</article>
-<hr />
-<article>
-	<h3><a href="/mongodbji-qun-bu-shu.html">Mongodb集群部署</a></h3>
-	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/mongodb.html">Mongodb</a> on 一 31 八月 2015.</h6>
-	<p>Mongodb集群搭建还是比较容易的一件事，只是操作稍显繁琐，有很多重复性劳动。由于官方没有发布集群配置工具，只能手动配置每一台服务器，为了节省时间和不必要的重复工作，这里给出一个一键操作Mongodb集群的方法和相应的脚本程序。</p>
-<p><strong>1. 集群环境设置</strong>   </p>
-<p>为了方便在集群多机条件下部署操作，需要为一些远程操作提供便利的系统和网络环境，例如集群机器的统一命名，ssh免登录认证，集群时统等等。假设我们要搭建一个5台机器组成的Mongodb数据库集群，我们选择Linux平台来部署集群，因为Mongodb在Linux上运行得比Windows平台上更稳定。</p>
-<p><strong>1.0 集群规划</strong>  </p>
-<p>当Mongodb数据库集群配置成一个分片+副本集的部署方案时，整个集群节点之间并没有主次之分，各节点完成相应角色任务即可。因此，我们给5台主机编号为<code>mongodb-[1~5]</code>，后续操作如无特别说明，均在<code>mongodb-1</code>主机上完成。</p>
-<p><strong>1.1 添加IP-主机名映射</strong></p>
-<p>向/etc/hosts文件中添加<em>IP-主机名映射表</em></p>
-<div class="highlight"><pre>10.0.0.1    mongodb-1
-10.0.0.2    mongodb-2 ...</pre></div>
-		<p class="continue"><a href="/mongodbji-qun-bu-shu.html">Continue reading &raquo;</a></p>
-</article>
-<hr />
-<article>
-	<h3><a href="/mongodbwen-ti-ji-jin-mongodbji-qun-zhong-mongoswu-fa-qi-dong.html">[Mongodb问题集锦]Mongodb集群中mongos无法启动</a></h3>
-	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/mongodb.html">Mongodb</a> on 一 31 八月 2015.</h6>
-	<p>上周在出差前，为了切换集群的连接端口，也就是把mongos的port换一下，把mongodb集群用脚本停掉，实际上用的是<code>pkill -2 mongo</code>。改好端口之后，再启动，各分片服务器、配置服务器和副本集配置均正常启动，到了最后一步启动mongos路由服务器出错了，屏显信息看不出所以然，查看mongos的日志（所以一定要开日志）找到类似如下提示，大意如此：</p>
-<div class="highlight"><pre>could not verify config server in sync: mongodb-1:57017, mongodb-2:57017 differ
-</pre></div>
-
-
-<p>就是说，集群有两台配置服务器不一致、不同步，导致路由服务无法启动。在集群中我设置有三个配置服务器。然后，就茫然了，赶着要出差的时候掉链子，当时不知道怎么弄，数据库集群就停工了半周。在网上查了一下，找到了解决方法，今天就搞定了。</p>
-<p>很简单。网上有两个方法，</p>
-<p><em>方法一</em>，把mongodb-1上的config server的内容全部dump出来，在restore到mongodb-2的config server上去 ...</p>
-		<p class="continue"><a href="/mongodbwen-ti-ji-jin-mongodbji-qun-zhong-mongoswu-fa-qi-dong.html">Continue reading &raquo;</a></p>
+	<h3><a href="/ju-lei-fang-fa-zong-jie.html">聚类方法总结</a></h3>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ji-qi-xue-xi.html">机器学习</a> on 三 19 八月 2015.</h6>
+	<p><img alt="聚类方法总结" src="/img/clustering_summary.png" />  <br />
+<a href="/img/clustering_summary.png">点击这里看大图</a></p>
+		<p class="continue"><a href="/ju-lei-fang-fa-zong-jie.html">Continue reading &raquo;</a></p>
 </article>
 <hr />
 
-<div class="row" style="margin-bottom: -1.25em;">
-	<div class="small-12 columns text-center">
-		<div class="pagination-centered">
-			<ul class="pagination">
-				<li class="arrow unavailable"><a href="#">&larr; Previous</a></li>
-				<li class="current"><a href="/author/patrick.html">1</a></li>
-				<li class=""><a href="/author/patrick2.html">2</a></li>
-				<li class="arrow"><a href="/author/patrick2.html">Next &rarr;</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
 
 						</div>
 						<!-- End Main Content -->

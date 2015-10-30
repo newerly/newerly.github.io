@@ -56,7 +56,7 @@
 							<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
 							<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 							<li ><a href="/category/mongodb.html">Mongodb</a></li>
-							<li ><a href="/category/ruan-jian.html">软件</a></li>
+							<li class="active"><a href="/category/ruan-jian.html">软件</a></li>
 							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 							<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
 							<li ><a href="/category/za-xiang.html">杂项</a></li>
@@ -85,7 +85,7 @@
 								<li ><a href="/category/du-shu-bi-ji.html">读书笔记</a></li>
 								<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 								<li ><a href="/category/mongodb.html">Mongodb</a></li>
-								<li ><a href="/category/ruan-jian.html">软件</a></li>
+								<li class="active"><a href="/category/ruan-jian.html">软件</a></li>
 								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 								<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
 								<li ><a href="/category/za-xiang.html">杂项</a></li>
@@ -105,21 +105,24 @@
 					<div class="row">
 						<!-- Main Content -->
 						<div class="medium-9 small-12 columns" role="content">
-							<div class="row">
-								<div class="small-12 columns">
-									<h2>Posts Tagged With '机器学习'</h2>
-								</div>
-							</div>
-
 <article>
-	<h3><a href="/zui-jin-lin-he-shi-you-yi-yi.html">最近邻何时有意义</a></h3>
-	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/yue-du-bi-ji.html">阅读笔记</a> on 三 28 十月 2015. Tags: <a href="/tag/zui-jin-lin.html">最近邻</a>, <a href="/tag/ji-qi-xue-xi.html">机器学习</a>, </h6>
-	
-		<p class="continue"><a href="/zui-jin-lin-he-shi-you-yi-yi.html">Continue reading &raquo;</a></p>
+	<h2>Wireshark离线安装</h2>
+	<p>Wireshark采用编译的方式安装会遇到许多依赖关系的问题，在离线环境中这么搞会很烦躁。一个简单的办法是在一台联网电脑上在线安装，然后把安装包都拷到离线电脑上，用<code>dpkg</code>来安装。</p>
+<div class="highlight"><pre><span class="err">#</span><span class="x"> 找一台联网电脑安装wireshark</span>
+<span class="p">$</span><span class="nv">sudo</span><span class="x"> apt-get install wireshark</span>
+<span class="err">#</span><span class="x"> wireshark的安装包会先下载到本地，对于ubuntu系统，一般放在`/var/cache/apt/archieves`</span>
+<span class="x">路径下。如果在联网电脑上安装没有问题，把这些deb的安装包拷贝到离线主机上，在同目录下执行</span>
+<span class="p">$</span><span class="nv">sudo</span><span class="x"> dpkg -i libc-ares2_1.10.0-2_amd64.deb libsmi2ldbl_0.4.8+dfsg2-8ubuntu2_amd64.deb </span>
+<span class="x">libwireshark3_1.10.6-1_amd64.deb libwireshark-data_1.10.6-1_all.deb </span>
+<span class="x">libwiretap3_1.10.6-1_amd64.deb libwsutil3_1.10.6-1_amd64.deb </span>
+<span class="x">wireshark_1.10.6-1_amd64.deb wireshark-common_1.10.6-1_amd64.deb</span>
+<span class="err">#</span><span class="x"> 然后就好了</span>
+</pre></div>
+	<hr/>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/ruan-jian.html">软件</a> on 二 01 九月 2015.</h6>
 </article>
-<hr />
 
-
+<hr/>
 						</div>
 						<!-- End Main Content -->
 						<!-- Sidebar -->

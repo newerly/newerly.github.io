@@ -57,7 +57,7 @@
 							<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 							<li ><a href="/category/mongodb.html">Mongodb</a></li>
 							<li ><a href="/category/ruan-jian.html">软件</a></li>
-							<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
+							<li class="active"><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 							<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
 							<li ><a href="/category/za-xiang.html">杂项</a></li>
 
@@ -86,7 +86,7 @@
 								<li ><a href="/category/ji-qi-xue-xi.html">机器学习</a></li>
 								<li ><a href="/category/mongodb.html">Mongodb</a></li>
 								<li ><a href="/category/ruan-jian.html">软件</a></li>
-								<li ><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
+								<li class="active"><a href="/category/shu-ju-fen-xi.html">数据分析</a></li>
 								<li ><a href="/category/yue-du-bi-ji.html">阅读笔记</a></li>
 								<li ><a href="/category/za-xiang.html">杂项</a></li>
 						</ul>
@@ -105,21 +105,23 @@
 					<div class="row">
 						<!-- Main Content -->
 						<div class="medium-9 small-12 columns" role="content">
-							<div class="row">
-								<div class="small-12 columns">
-									<h2>Posts Tagged With '机器学习'</h2>
-								</div>
-							</div>
-
 <article>
-	<h3><a href="/zui-jin-lin-he-shi-you-yi-yi.html">最近邻何时有意义</a></h3>
-	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/yue-du-bi-ji.html">阅读笔记</a> on 三 28 十月 2015. Tags: <a href="/tag/zui-jin-lin.html">最近邻</a>, <a href="/tag/ji-qi-xue-xi.html">机器学习</a>, </h6>
-	
-		<p class="continue"><a href="/zui-jin-lin-he-shi-you-yi-yi.html">Continue reading &raquo;</a></p>
+	<h2>二进制数据构成的离散空间及其转换关系</h2>
+	<p>对于网络二进制数据，我们常以不同的单位进行划分统计。最细粒度的是以比特为单位，二进制数据集在${0,1}^{2^n}$离散空间中分布，其中$n$为二进制数据的比特个数。当以字节为单位进行统计时，二进制数据集在${i,i\in{0,1,2,\dots,255}}^{2^(n/8)}$的离散空间中分布。其它以不同粒度进行统计，情况类似。</p>
+<p>要对不同协议的原始二进制数据进行聚类、分类，一个前提假设就是这些数据在离散空间中的分布不是随机均匀散布的，如果是随机均匀散布，则数据集不具备可识别特征，现在的研究就是要先证实这个假设前提，然后进行识别分析。因此，对协议的二进制数据进行聚类分析就是为了验证在某一离散空间中不同协议数据是否具有团簇特征。</p>
+<p>而二进制数据在以不同基底构成的离散空间之间存在着转换关系，以比特和字节为单位的离散空间为例，以字节为单位的离散空间是将以比特为单位的离散空间，按8比特，或认为是8个维度构成的一个子空间进行压缩映射：</p>
+<p>$$f:\mathcal {0,1}^8\rightarrow{i,i\in{0,1,\dots,255}}$$</p>
+<p>而这一映射结果实际上是每8维离散子空间中的加权曼哈顿距离，即</p>
+<p>$$f(x;w)=x^Tw$$</p>
+<p>其中，$x$为8维向量，$w=[2^0,2^1,\dots,2^7]$。因此，以粒度$p$为单位构成的离散样本空间，均可视为是由比特空间中$p$维子空间的加权曼哈顿距离构成的新的离散空间。<strong>也就是说，当我们以字节、半字节等为单位对二进制数据进行相似性度量的时候，（半）字节数据是原始的二进制数据的加权曼哈顿距离度量之后的结果。</strong></p>
+<p>如果两个8比特长度的二进制数据中只有一比特位的差别，使用字节的方式进行度量，就会造成$2^i,0\ge i\le7$的误差，此时选择汉明距离可能更合适。</p>
+<p>为了度量样本数据集在离散空间中是否具有团簇特征，可以采用序列信息熵加以判断。网络协议的二进制数据可以视为一个多符号的离散信源，一个二进制序列的每一位出现哪个符号是随机或服从某种分布的，而前后的符号中可能存在统计依赖关系。序列信息熵可以为多源（协议）混合的样本集的聚类问题提供简单的可聚类性指标，快速判断混合样本集是否具有团簇特性，如果有，则使用聚类算法提取其中的类别信息。这为海量数据的前期筛选和启动聚类过程提供了处理门限，减少不必要的计算开销。</p>
+<p>至于如何计算协议数据的序列信息熵，后面再做专门研究。</p>
+	<hr/>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/shu-ju-fen-xi.html">数据分析</a> on 六 17 十月 2015.</h6>
 </article>
-<hr />
 
-
+<hr/>
 						</div>
 						<!-- End Main Content -->
 						<!-- Sidebar -->
