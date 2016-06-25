@@ -111,6 +111,21 @@
 						<div class="medium-9 small-12 columns" role="content">
 
 <article>
+	<h3><a href="/mongodbji-qun-bu-shu.html">Mongodb集群部署</a></h3>
+	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/mongodb.html">Mongodb</a> on 一 31 八月 2015.</h6>
+	<p>Mongodb集群搭建还是比较容易的一件事，只是操作稍显繁琐，有很多重复性劳动。由于官方没有发布集群配置工具，只能手动配置每一台服务器，为了节省时间和不必要的重复工作，这里给出一个一键操作Mongodb集群的方法和相应的脚本程序。</p>
+<p><strong>1. 集群环境设置</strong>   </p>
+<p>为了方便在集群多机条件下部署操作，需要为一些远程操作提供便利的系统和网络环境，例如集群机器的统一命名，ssh免登录认证，集群时统等等。假设我们要搭建一个5台机器组成的Mongodb数据库集群，我们选择Linux平台来部署集群，因为Mongodb在Linux上运行得比Windows平台上更稳定。</p>
+<p><strong>1.0 集群规划</strong>  </p>
+<p>当Mongodb数据库集群配置成一个分片+副本集的部署方案时，整个集群节点之间并没有主次之分，各节点完成相应角色任务即可。因此，我们给5台主机编号为<code>mongodb-[1~5]</code>，后续操作如无特别说明，均在<code>mongodb-1</code>主机上完成。</p>
+<p><strong>1.1 添加IP-主机名映射</strong></p>
+<p>向/etc/hosts文件中添加<em>IP-主机名映射表</em></p>
+<div class="highlight"><pre>10.0.0.1    mongodb-1
+10.0.0.2    mongodb-2 ...</pre></div>
+		<p class="continue"><a href="/mongodbji-qun-bu-shu.html">Continue reading &raquo;</a></p>
+</article>
+<hr />
+<article>
 	<h3><a href="/mongodbwen-ti-ji-jin-mongodbji-qun-zhong-mongoswu-fa-qi-dong.html">[Mongodb问题集锦]Mongodb集群中mongos无法启动</a></h3>
 	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/mongodb.html">Mongodb</a> on 一 31 八月 2015.</h6>
 	<p>上周在出差前，为了切换集群的连接端口，也就是把mongos的port换一下，把mongodb集群用脚本停掉，实际上用的是<code>pkill -2 mongo</code>。改好端口之后，再启动，各分片服务器、配置服务器和副本集配置均正常启动，到了最后一步启动mongos路由服务器出错了，屏显信息看不出所以然，查看mongos的日志（所以一定要开日志）找到类似如下提示，大意如此：</p>
@@ -217,6 +232,9 @@
 							<div class="panel">
 								<h5>Tags</h5>
 								<ul class="tag-cloud">
+									<li><a href="/tag/mongodb.html" class="tag-4">mongodb</a></li>
+									<li><a href="/tag/机器学习.html" class="tag-4">机器学习</a></li>
+									<li><a href="/tag/最近邻.html" class="tag-4">最近邻</a></li>
 								</ul>
 							</div>
 

@@ -109,50 +109,16 @@
 					<div class="row">
 						<!-- Main Content -->
 						<div class="medium-9 small-12 columns" role="content">
-							<div class="row">
-								<div class="small-12 columns">
-									<h2>Category: Mongodb</h2>
-								</div>
-							</div>
-
 <article>
-	<h3><a href="/mongodb-configuration-script-in-python.html">Mongodb Configuration Script in Python</a></h3>
+	<h2>Mongodb Configuration Script in Python</h2>
+	<p>This script provides two modes for Mongodb configuration, standalone and sharding.</p>
+<p>Github: https://github.com/newerly/PyMongoConf</p>
+<p>If there is any problem, please contact hsuxpatrick at gmail.com</p>
+	<hr/>
 	<h6>Written by <a href="/author/patrick-hsu.html">Patrick Hsu</a> in <a href="/category/mongodb.html">Mongodb</a> on 六 25 六月 2016. Tags: <a href="/tag/mongodb.html">mongodb</a>, </h6>
-	
-		<p class="continue"><a href="/mongodb-configuration-script-in-python.html">Continue reading &raquo;</a></p>
 </article>
-<hr />
-<article>
-	<h3><a href="/mongodbji-qun-bu-shu.html">Mongodb集群部署</a></h3>
-	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/mongodb.html">Mongodb</a> on 一 31 八月 2015.</h6>
-	<p>Mongodb集群搭建还是比较容易的一件事，只是操作稍显繁琐，有很多重复性劳动。由于官方没有发布集群配置工具，只能手动配置每一台服务器，为了节省时间和不必要的重复工作，这里给出一个一键操作Mongodb集群的方法和相应的脚本程序。</p>
-<p><strong>1. 集群环境设置</strong>   </p>
-<p>为了方便在集群多机条件下部署操作，需要为一些远程操作提供便利的系统和网络环境，例如集群机器的统一命名，ssh免登录认证，集群时统等等。假设我们要搭建一个5台机器组成的Mongodb数据库集群，我们选择Linux平台来部署集群，因为Mongodb在Linux上运行得比Windows平台上更稳定。</p>
-<p><strong>1.0 集群规划</strong>  </p>
-<p>当Mongodb数据库集群配置成一个分片+副本集的部署方案时，整个集群节点之间并没有主次之分，各节点完成相应角色任务即可。因此，我们给5台主机编号为<code>mongodb-[1~5]</code>，后续操作如无特别说明，均在<code>mongodb-1</code>主机上完成。</p>
-<p><strong>1.1 添加IP-主机名映射</strong></p>
-<p>向/etc/hosts文件中添加<em>IP-主机名映射表</em></p>
-<div class="highlight"><pre>10.0.0.1    mongodb-1
-10.0.0.2    mongodb-2 ...</pre></div>
-		<p class="continue"><a href="/mongodbji-qun-bu-shu.html">Continue reading &raquo;</a></p>
-</article>
-<hr />
-<article>
-	<h3><a href="/mongodbwen-ti-ji-jin-mongodbji-qun-zhong-mongoswu-fa-qi-dong.html">[Mongodb问题集锦]Mongodb集群中mongos无法启动</a></h3>
-	<h6>Written by <a href="/author/patrick.html">Patrick</a> in <a href="/category/mongodb.html">Mongodb</a> on 一 31 八月 2015.</h6>
-	<p>上周在出差前，为了切换集群的连接端口，也就是把mongos的port换一下，把mongodb集群用脚本停掉，实际上用的是<code>pkill -2 mongo</code>。改好端口之后，再启动，各分片服务器、配置服务器和副本集配置均正常启动，到了最后一步启动mongos路由服务器出错了，屏显信息看不出所以然，查看mongos的日志（所以一定要开日志）找到类似如下提示，大意如此：</p>
-<div class="highlight"><pre>could not verify config server in sync: mongodb-1:57017, mongodb-2:57017 differ
-</pre></div>
 
-
-<p>就是说，集群有两台配置服务器不一致、不同步，导致路由服务无法启动。在集群中我设置有三个配置服务器。然后，就茫然了，赶着要出差的时候掉链子，当时不知道怎么弄，数据库集群就停工了半周。在网上查了一下，找到了解决方法，今天就搞定了。</p>
-<p>很简单。网上有两个方法，</p>
-<p><em>方法一</em>，把mongodb-1上的config server的内容全部dump出来，在restore到mongodb-2的config server上去 ...</p>
-		<p class="continue"><a href="/mongodbwen-ti-ji-jin-mongodbji-qun-zhong-mongoswu-fa-qi-dong.html">Continue reading &raquo;</a></p>
-</article>
-<hr />
-
-
+<hr/>
 						</div>
 						<!-- End Main Content -->
 						<!-- Sidebar -->

@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/</loc>
-<lastmod>2015-10-31T00:16:53-00:00</lastmod>
+<lastmod>2016-06-25T10:23:24-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2015-10-31T00:16:53-00:00</lastmod>
+<lastmod>2016-06-25T10:23:24-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2015-10-31T00:16:53-00:00</lastmod>
+<lastmod>2016-06-25T10:23:24-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2015-10-31T00:16:53-00:00</lastmod>
+<lastmod>2016-06-25T10:23:24-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -34,6 +34,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>/pages/about.html</loc>
 <lastmod>2015-10-28T00:00:00+01:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/mongodb-configuration-script-in-python.html</loc>
+<lastmod>2016-06-25T00:00:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -159,7 +166,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/category/mongodb.html</loc>
-<lastmod>2015-08-31T00:00:00+00:09</lastmod>
+<lastmod>2016-06-25T00:00:00+00:09</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -193,14 +200,21 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>/tag/zui-jin-lin.html</loc>
-<lastmod>2015-10-28T00:00:00+00:09</lastmod>
+<loc>/tag/mongodb.html</loc>
+<lastmod>2016-06-25T00:00:00+00:09</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tag/ji-qi-xue-xi.html</loc>
+<lastmod>2015-10-28T00:00:00+00:09</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/tag/zui-jin-lin.html</loc>
 <lastmod>2015-10-28T00:00:00+00:09</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
@@ -215,7 +229,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/author/patrick-hsu.html</loc>
-<lastmod>2015-10-28T00:00:00+00:09</lastmod>
+<lastmod>2016-06-25T00:00:00+00:09</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
